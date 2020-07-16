@@ -1,3 +1,8 @@
+function test() {
+    console.log('link elves ok');
+}
+test()
+
 class Elf {
     constructor(startX, startY) {
         this.startX = startX; // where to place Elf on X at the beginnning og the game.
@@ -22,7 +27,7 @@ class Elf {
         imgElfEmpty.src = "../assets/character/happy elf male.jpg";
         imgElfLoaded.src = "../assets/character/happy elf male loaded.jpg";
     }
-    drawEmty() {
+    drawEmpty() {
         if (!this.imgElfEmpty) return;
         ctx.drawImage(this.imageElfEmpty, this.startX, this.startY, this.w, this.h);
     };
@@ -31,8 +36,3 @@ class Elf {
         ctx.drawImage(this.imageElfLoaded, this.startX, this.startY, this.w, this.h);
     }
 }
-
-function test() {
-    console.log('link elves ok');
-}
-test()

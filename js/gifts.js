@@ -1,3 +1,9 @@
+function test() {
+    console.log('link gifts ok');
+}
+test()
+
+
 class Gift {
     constructor(name, imageLink, weight, x, y) {
         this.name = name;
@@ -14,10 +20,9 @@ class Gift {
         }
         giftImage.src = imageLink;
     }
-    draw() {}
-}
+    draw() {
+        if (!this.giftImage) return;
+        ctx.drawImage(this.giftImage, this.x, this.y, this.w, this.h);
 
-function test() {
-    console.log('link gifts ok');
+    }
 }
-test()
