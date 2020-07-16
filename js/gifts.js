@@ -16,3 +16,8 @@ class Gift {
     }
     draw() {}
 }
+
+function test() {
+    console.log('link gifts ok');
+}
+test()
