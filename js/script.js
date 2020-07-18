@@ -1,3 +1,4 @@
+// Test link
 console.log('link script ok');
 
 const ctx = document.querySelector("canvas").getContext("2d");
@@ -11,26 +12,62 @@ var gameover = false;
 var elfOne;
 
 
-// Test link
+// ########   #######     ###    ########  ########  
+// ##     ## ##     ##   ## ##   ##     ## ##     ## 
+// ##     ## ##     ##  ##   ##  ##     ## ##     ## 
+// ########  ##     ## ##     ## ########  ##     ## 
+// ##     ## ##     ## ######### ##   ##   ##     ## 
+// ##     ## ##     ## ##     ## ##    ##  ##     ## 
+// ########   #######  ##     ## ##     ## ########  
 
-
-function drawGame() {
+function drawBoard() {
     const woodFloor = new Image();
     woodFloor.onload = () => {
         for (var i = 0; i < (H / G); i++) {
             for (var j = 0; j < (W / G); j++) {
                 ctx.drawImage(woodFloor, j * G, i * G, 5 * G, 5 * G); //https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas - PERF OPTIMISATION SCALE OUT OF DRAW IMAGE 
-                console.log(G);
             }
         }
-        elfOne.changeSrc(0);
         designGrid();
     }
     woodFloor.src = "./assets/background/woodfloor 1000x1000.jpg";
 }
 
+// ##      ## ####  ######  ##     ## ##       ####  ######  ######## 
+// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##    
+// ##  ##  ##  ##  ##       ##     ## ##        ##  ##          ##    
+// ##  ##  ##  ##   ######  ######### ##        ##   ######     ##    
+// ##  ##  ##  ##        ## ##     ## ##        ##        ##    ##    
+// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##    
+//  ###  ###  ####  ######  ##     ## ######## ####  ######     ##    
+
+
+function drawWishList() {
+
+}
+
+// ########  ########     ###    ##      ## 
+// ##     ## ##     ##   ## ##   ##  ##  ## 
+// ##     ## ##     ##  ##   ##  ##  ##  ## 
+// ##     ## ########  ##     ## ##  ##  ## 
+// ##     ## ##   ##   ######### ##  ##  ## 
+// ##     ## ##    ##  ##     ## ##  ##  ## 
+// ########  ##     ## ##     ##  ###  ###  
+
+function draw() {
+    elfOne.changeSrc(0);
+}
+
 
 // drawGame(); <===== to be removed 
+
+// ########  ########  ######  ####  ######   ##    ##     ######   ########  #### ########  
+// ##     ## ##       ##    ##  ##  ##    ##  ###   ##    ##    ##  ##     ##  ##  ##     ## 
+// ##     ## ##       ##        ##  ##        ####  ##    ##        ##     ##  ##  ##     ## 
+// ##     ## ######    ######   ##  ##   #### ## ## ##    ##   #### ########   ##  ##     ## 
+// ##     ## ##             ##  ##  ##    ##  ##  ####    ##    ##  ##   ##    ##  ##     ## 
+// ##     ## ##       ##    ##  ##  ##    ##  ##   ###    ##    ##  ##    ##   ##  ##     ## 
+// ########  ########  ######  ####  ######   ##    ##     ######   ##     ## #### ########  
 
 
 //UTILITY FUNCTION FOR BOARD DESIGN PURPOSE
@@ -63,6 +100,13 @@ function designGrid() {
     }
 }
 
+//    ###    ##    ## #### ##     ##    ##        #######   #######  ########  
+//   ## ##   ###   ##  ##  ###   ###    ##       ##     ## ##     ## ##     ## 
+//  ##   ##  ####  ##  ##  #### ####    ##       ##     ## ##     ## ##     ## 
+// ##     ## ## ## ##  ##  ## ### ##    ##       ##     ## ##     ## ########  
+// ######### ##  ####  ##  ##     ##    ##       ##     ## ##     ## ##        
+// ##     ## ##   ###  ##  ##     ##    ##       ##     ## ##     ## ##        
+// ##     ## ##    ## #### ##     ##    ########  #######   #######  ##        
 
 //ANIMATION LOOP
 let frames = 0;
@@ -71,7 +115,7 @@ let raf;
 function animLoop() {
     frames++;
     // console.log(frames);
-    drawGame();
+    draw()
     if (!gameover) {
         raf = requestAnimationFrame(animLoop);
     }
@@ -82,8 +126,14 @@ function startGame() {
         cancelAnimationFrame(raf);
     }
     elfOne = new Elf(300, 150);
+    raf = requestAnimationFrame(animLoop);
+    drawBoard();
+    draw();
     animLoop();
 }
 
 startGame();
 // animLoop()
+
+
+// ON CLICK DOWN ==> method pour guider en maintenant cliqué les elfs.
