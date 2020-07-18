@@ -8,11 +8,11 @@ class Elf {
         this.startY = startY; // where to place Elf on Y at the beginnning og the game.
 
         this.img = document.createElement('img'); // <img>
-        this.srcs = ["../assets/character/happy_elf_male.jpg", "../assets/character/happy_elf_male_loaded.jpg"]
+        this.srcs = ["./assets/character/happy-elf-male.jpg", "./assets/character/happy_elf_male_loaded.jpg"];
 
         this.changeSrc(0) // new Elf()
     }
-    changeSrc(i) {
+    changeSrc(i = 0) {
         this.img.onload = () => {
             const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
             this.w = 50;
@@ -23,7 +23,7 @@ class Elf {
         this.img.src = this.srcs[i];
     }
     draw() {
-        if (!this.imgElfEmpty) return;
+        if (!this.img) return;
         ctx.drawImage(this.img, this.startX, this.startY, this.w, this.h);
     };
 }

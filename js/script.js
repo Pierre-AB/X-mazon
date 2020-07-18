@@ -4,8 +4,12 @@ const ctx = document.querySelector("canvas").getContext("2d");
 const W = ctx.canvas.width;
 const H = ctx.canvas.height;
 var G = 50; // GRID FINE TUNING - ONE SIDE OF A GRID SQUARE
-var frames = 0;
-var timeOver = true;
+// Gameplay variables
+var gameover = false;
+
+// Characters variables
+var elfOne;
+
 
 // Test link
 
@@ -19,13 +23,14 @@ function drawGame() {
                 console.log(G);
             }
         }
+        elfOne.changeSrc(0);
         designGrid();
     }
     woodFloor.src = "./assets/background/woodfloor 1000x1000.jpg";
 }
 
 
-drawGame();
+// drawGame(); <===== to be removed 
 
 
 //UTILITY FUNCTION FOR BOARD DESIGN PURPOSE
@@ -60,10 +65,14 @@ function designGrid() {
 
 
 //ANIMATION LOOP
+let frames = 0;
+let raf;
+
 function animLoop() {
     frames++;
+    // console.log(frames);
     drawGame();
-    if (!timeOver) {
+    if (!gameover) {
         raf = requestAnimationFrame(animLoop);
     }
 }
@@ -72,4 +81,9 @@ function startGame() {
     if (raf) {
         cancelAnimationFrame(raf);
     }
+    elfOne = new Elf(300, 150);
+    animLoop();
 }
+
+startGame();
+// animLoop()
