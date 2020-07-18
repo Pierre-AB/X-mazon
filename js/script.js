@@ -8,8 +8,10 @@ var G = 50; // GRID FINE TUNING - ONE SIDE OF A GRID SQUARE
 // Gameplay variables
 var gameover = false;
 var giftList;
+var belt;
 // Characters variables
 var elfOne;
+var elfTwo;
 
 
 // ########   #######     ###    ########  ########  
@@ -28,7 +30,8 @@ function drawBoard() {
                 ctx.drawImage(woodFloor, j * G, i * G, 5 * G, 5 * G); //https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas - PERF OPTIMISATION SCALE OUT OF DRAW IMAGE 
             }
         }
-        designGrid();
+
+        // designGrid();
     }
     woodFloor.src = "./assets/background/woodfloor 1000x1000.jpg";
 }
@@ -52,12 +55,14 @@ function drawBoard() {
 // ########  ##     ## ##     ##  ###  ###  
 
 function draw() {
-    elfOne.changeSrc(0);
-    giftList.draw(); // print wishlist randomly picked on the board WARNING: CHANGE CANVAS COLOR
+    elfOne.changeSrc(0); //display Elf 1
+    elfTwo.changeSrc(0); //display Elf 2
+    giftList.draw(); // print wishlist randomly picked on the board
+    belt.draw();
+    aisleG1.draw();
+    designGrid();
 }
 
-
-// drawGame(); <===== to be removed 
 
 // ########  ########  ######  ####  ######   ##    ##     ######   ########  #### ########  
 // ##     ## ##       ##    ##  ##  ##    ##  ###   ##    ##    ##  ##     ##  ##  ##     ## 
@@ -80,7 +85,7 @@ function designGrid() {
         ctx.beginPath();
         ctx.setLineDash([dash, gap]);
         ctx.moveTo(nextRow, 0);
-        ctx.fillText(`${nextRow}`, nextRow + 3, 10);
+        ctx.fillText(`${nextRow}`, nextRow + 3, 15);
         ctx.lineTo(nextRow, H);
         ctx.stroke();
         ctx.closePath();
@@ -119,13 +124,28 @@ function animLoop() {
     }
 }
 
+//  ######  ########    ###    ########  ########     ######      ###    ##     ## ######## 
+// ##    ##    ##      ## ##   ##     ##    ##       ##    ##    ## ##   ###   ### ##       
+// ##          ##     ##   ##  ##     ##    ##       ##         ##   ##  #### #### ##       
+//  ######     ##    ##     ## ########     ##       ##   #### ##     ## ## ### ## ######   
+//       ##    ##    ######### ##   ##      ##       ##    ##  ######### ##     ## ##       
+// ##    ##    ##    ##     ## ##    ##     ##       ##    ##  ##     ## ##     ## ##       
+//  ######     ##    ##     ## ##     ##    ##        ######   ##     ## ##     ## ######## 
+
+
 function startGame() {
     if (raf) {
         cancelAnimationFrame(raf);
     }
-    elfOne = new Elf(300, 150);
+    gameover = false;
+    //INVOKE ALL OBJECTS
+    elfOne = new Elf(350, 200);
+    elfTwo = new Elf(350, 375);
     giftList = new Wishlist; //invoke new wishlist object.
     giftList.newWishList() //create a new random wishList.
+    belt = new Obstacles(425, 175, 50, 300, "orange");
+    aisleG1 = new Obstacles(75, 150, 250, 25, "blue");
+
     raf = requestAnimationFrame(animLoop);
     drawBoard();
     draw();
@@ -133,7 +153,6 @@ function startGame() {
 }
 
 startGame();
-// animLoop()
 
 
 // ON CLICK DOWN ==> method pour guider en maintenant cliqué les elfs.

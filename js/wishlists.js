@@ -8,7 +8,8 @@ console.log("link wishlist ok");
 class Wishlist {
     constructor() {
         this.x = 600;
-        this.y = 25;
+        this.y = 23;
+        this.w = 150;
         this.gifts = ['Car', 'Bike', 'Video Game', 'Candy', 'Dolls', 'Construction Blocks', 'Books', 'Hi-Tech Stuff'];
         this.wishList = [];
         this.img = new Image();
@@ -18,11 +19,16 @@ class Wishlist {
 
     draw() {
         var nextItem = 0;
+        //IMPROVE WISHLIST GAME DISPLAY
+        // const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
+        // ctx.drawImage(this.img, 550, 5, this.w, this.w / imgRatio);
+        ctx.fillStyle = "antiquewhite";
+        ctx.fillRect(595, 5, 155, 100); //SIZE OF WISHLIST PAD
+        ctx.fillStyle = "black";
         ctx.font = "16px sans-serif";
-        ctx.fillStyle = "white";
         this.wishList.forEach((el) => {
             ctx.fillText(el, this.x, this.y + nextItem);
-            nextItem += 20;
+            nextItem += 23;
         })
     }
 
