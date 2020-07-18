@@ -7,7 +7,7 @@ const H = ctx.canvas.height;
 var G = 50; // GRID FINE TUNING - ONE SIDE OF A GRID SQUARE
 // Gameplay variables
 var gameover = false;
-
+var giftList;
 // Characters variables
 var elfOne;
 
@@ -42,9 +42,6 @@ function drawBoard() {
 //  ###  ###  ####  ######  ##     ## ######## ####  ######     ##    
 
 
-function drawWishList() {
-
-}
 
 // ########  ########     ###    ##      ## 
 // ##     ## ##     ##   ## ##   ##  ##  ## 
@@ -56,6 +53,7 @@ function drawWishList() {
 
 function draw() {
     elfOne.changeSrc(0);
+    giftList.draw(); // print wishlist randomly picked on the board WARNING: CHANGE CANVAS COLOR
 }
 
 
@@ -126,6 +124,8 @@ function startGame() {
         cancelAnimationFrame(raf);
     }
     elfOne = new Elf(300, 150);
+    giftList = new Wishlist; //invoke new wishlist object.
+    giftList.newWishList() //create a new random wishList.
     raf = requestAnimationFrame(animLoop);
     drawBoard();
     draw();

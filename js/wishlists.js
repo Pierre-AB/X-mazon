@@ -8,13 +8,22 @@ console.log("link wishlist ok");
 class Wishlist {
     constructor() {
         this.x = 600;
-        this.y = 50;
+        this.y = 25;
         this.gifts = ['Car', 'Bike', 'Video Game', 'Candy', 'Dolls', 'Construction Blocks', 'Books', 'Hi-Tech Stuff'];
         this.wishList = [];
+        this.img = new Image();
+        this.img.src = "../assets/background/santa-wishlist.png";
+
     }
 
     draw() {
-        // ctx.fillText(this.gifts);
+        var nextItem = 0;
+        ctx.font = "16px sans-serif";
+        ctx.fillStyle = "white";
+        this.wishList.forEach((el) => {
+            ctx.fillText(el, this.x, this.y + nextItem);
+            nextItem += 20;
+        })
     }
 
     newWishList() {
@@ -28,5 +37,3 @@ class Wishlist {
     }
 
 }
-
-var giftList = new Wishlist;
