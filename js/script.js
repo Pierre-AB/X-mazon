@@ -1,15 +1,16 @@
+console.log('link script ok');
+
 const ctx = document.querySelector("canvas").getContext("2d");
 const W = ctx.canvas.width;
 const H = ctx.canvas.height;
 var G = 50; // GRID FINE TUNING - ONE SIDE OF A GRID SQUARE
+var frames = 0;
+var timeOver = true;
 
 // Test link
-function test() {
-    console.log('link script ok');
-}
 
 
-function drawBoard() {
+function drawGame() {
     const woodFloor = new Image();
     woodFloor.onload = () => {
         for (var i = 0; i < (H / G); i++) {
@@ -18,13 +19,14 @@ function drawBoard() {
                 console.log(G);
             }
         }
+        designGrid();
     }
     woodFloor.src = "./assets/background/woodfloor 1000x1000.jpg";
 }
 
 
-test();
-drawBoard();
+drawGame();
+
 
 //UTILITY FUNCTION FOR BOARD DESIGN PURPOSE
 function designGrid() {
@@ -57,4 +59,17 @@ function designGrid() {
 }
 
 
-designGrid();
+//ANIMATION LOOP
+function animLoop() {
+    frames++;
+    drawGame();
+    if (!timeOver) {
+        raf = requestAnimationFrame(animLoop);
+    }
+}
+
+function startGame() {
+    if (raf) {
+        cancelAnimationFrame(raf);
+    }
+}

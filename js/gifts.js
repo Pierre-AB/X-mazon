@@ -1,7 +1,5 @@
-function test() {
-    console.log('link gifts ok');
-}
-test()
+console.log('link gifts ok');
+
 
 
 class Gift {
