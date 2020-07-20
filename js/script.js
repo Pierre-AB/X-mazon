@@ -59,7 +59,12 @@ function draw() {
     elfTwo.changeSrc(0); //display Elf 2
     giftList.draw(); // print wishlist randomly picked on the board
     belt.draw();
+    // MAYBE AISLE DRAW FUNCTION
     aisleG1.draw();
+    aisleG2.draw();
+    aisleG3.draw();
+    aisleG4.draw();
+    aisleG5.draw();
     designGrid();
 }
 
@@ -145,6 +150,10 @@ function startGame() {
     giftList.newWishList() //create a new random wishList.
     belt = new Obstacles(425, 175, 50, 300, "orange");
     aisleG1 = new Obstacles(75, 150, 250, 25, "blue");
+    aisleG2 = new Obstacles(75, 250, 250, 25, "blue");
+    aisleG3 = new Obstacles(75, 350, 250, 25, "blue");
+    aisleG4 = new Obstacles(75, 450, 250, 25, "blue");
+    aisleG5 = new Obstacles(75, 550, 250, 25, "blue");
 
     raf = requestAnimationFrame(animLoop);
     drawBoard();

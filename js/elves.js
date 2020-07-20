@@ -14,7 +14,7 @@ class Elf {
     changeSrc(i = 0) {
         this.img.onload = () => {
             const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
-            this.w = 60;
+            this.w = 40;
             this.h = this.w / imgRatio;
             this.draw()
         }
