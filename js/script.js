@@ -59,12 +59,22 @@ function draw() {
     elfTwo.changeSrc(0); //display Elf 2
     giftList.draw(); // print wishlist randomly picked on the board
     belt.draw();
-    // MAYBE AISLE DRAW FUNCTION
-    aisleG1.draw();
-    aisleG2.draw();
-    aisleG3.draw();
-    aisleG4.draw();
-    aisleG5.draw();
+
+    //---???---MAYBE AISLE DRAW FUNCTION
+    //--???---SHOULD I NOT DRAW THEM ONCE AND TEST COLLISION HERE ONLY?
+
+    // LEFT AISLE DRAW
+    aisleL1.draw();
+    aisleL2.draw();
+    aisleL3.draw();
+    aisleL4.draw();
+    aisleL5.draw();
+    //RIGHT AISLE DRAW
+    aisleR1.draw();
+    aisleR2.draw();
+    aisleR3.draw();
+    aisleR4.draw();
+    aisleR5.draw();
     designGrid();
 }
 
@@ -144,16 +154,25 @@ function startGame() {
     }
     gameover = false;
     //INVOKE ALL OBJECTS
+    //INVOKE ELVES
     elfOne = new Elf(350, 200);
-    elfTwo = new Elf(350, 375);
+    elfTwo = new Elf(500, 375);
     giftList = new Wishlist; //invoke new wishlist object.
     giftList.newWishList() //create a new random wishList.
+    //CENTER BELT INVOKE
     belt = new Obstacles(425, 175, 50, 300, "orange");
-    aisleG1 = new Obstacles(75, 150, 250, 25, "blue");
-    aisleG2 = new Obstacles(75, 250, 250, 25, "blue");
-    aisleG3 = new Obstacles(75, 350, 250, 25, "blue");
-    aisleG4 = new Obstacles(75, 450, 250, 25, "blue");
-    aisleG5 = new Obstacles(75, 550, 250, 25, "blue");
+    //LEFT AISLES INVOKE
+    aisleL1 = new Obstacles(75, 150, 250, 25, "blue");
+    aisleL2 = new Obstacles(75, 250, 250, 25, "blue");
+    aisleL3 = new Obstacles(75, 350, 250, 25, "blue");
+    aisleL4 = new Obstacles(75, 450, 250, 25, "blue");
+    aisleL5 = new Obstacles(75, 550, 250, 25, "blue");
+    //RIGHT AISLES INVOKE
+    aisleR1 = new Obstacles(575, 150, 250, 25, "blue");
+    aisleR2 = new Obstacles(575, 250, 250, 25, "blue");
+    aisleR3 = new Obstacles(575, 350, 250, 25, "blue");
+    aisleR4 = new Obstacles(575, 450, 250, 25, "blue");
+    aisleR5 = new Obstacles(575, 550, 250, 25, "blue");
 
     raf = requestAnimationFrame(animLoop);
     drawBoard();
