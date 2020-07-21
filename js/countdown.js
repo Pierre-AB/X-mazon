@@ -2,8 +2,8 @@ console.log('link countdown ok')
 
 
 class Countdown {
-    constructor() {
-        this.currentTime = 0;
+    constructor(gameTime) {
+        this.currentTime = gameTime; // --???-- in second ?
         this.intervalId = 0;
     }
     start(callback) {

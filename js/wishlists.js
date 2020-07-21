@@ -13,7 +13,7 @@ class Wishlist {
         this.gifts = ['Car', 'Bike', 'Video Game', 'Candy', 'Dolls', 'Construction Blocks', 'Books', 'Hi-Tech Stuff'];
         this.wishList = [];
         this.img = new Image();
-        this.img.src = "./assets/background/santa-wishlist.png";
+        // this.img.src = "./assets/background/santa-wishlist.png";
 
     }
 

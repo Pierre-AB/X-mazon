@@ -22,19 +22,10 @@ var elfTwo;
 // ##     ## ##     ## ##     ## ##    ##  ##     ## 
 // ########   #######  ##     ## ##     ## ########  
 
-function drawBoard() {
-    const woodFloor = new Image();
-    woodFloor.onload = () => {
-        for (var i = 0; i < (H / G); i++) {
-            for (var j = 0; j < (W / G); j++) {
-                ctx.drawImage(woodFloor, j * G, i * G, 5 * G, 5 * G); //https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Optimizing_canvas - PERF OPTIMISATION SCALE OUT OF DRAW IMAGE 
-            }
-        }
+const woodFloor = new Image();
+woodFloor.src = "./assets/background/Woodfloor_oneimage.jpg"
 
-        // designGrid();
-    }
-    woodFloor.src = "./assets/background/woodfloor 1000x1000.jpg";
-}
+
 
 // ##      ## ####  ######  ##     ## ##       ####  ######  ######## 
 // ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##    
@@ -55,16 +46,24 @@ function drawBoard() {
 // ########  ##     ## ##     ##  ###  ###  
 
 function draw() {
-    elfOne.changeSrc(0); //display Elf 1
-    elfTwo.changeSrc(0); //display Elf 2
+
+    ctx.clearRect(0, 0, W, H); // --???-- A BIT HARDCORE NO ??
+    ctx.drawImage(woodFloor, 0, 0, W, H);
     giftList.draw(); // print wishlist randomly picked on the board
     belt.draw();
 
-    //---???---MAYBE AISLE DRAW FUNCTION
-    //--???---SHOULD I NOT DRAW THEM ONCE AND TEST COLLISION HERE ONLY?
+    // chrono
+    const elapsed = new Date().getTime() - startedAt; // 78987
+    const seconds = Math.floor(elapsed / 1000) % 60; // 78 % 60 -> 18
+    const minutes = Math.floor(elapsed / 60000);
+    var time =
 
-    // LEFT AISLE DRAW
-    aisleL1.draw();
+
+        //---???---MAYBE AISLE DRAW FUNCTION
+        //--???---SHOULD I NOT DRAW THEM ONCE AND TEST COLLISION HERE ONLY?
+
+        // LEFT AISLE DRAW
+        aisleL1.draw();
     aisleL2.draw();
     aisleL3.draw();
     aisleL4.draw();
@@ -75,6 +74,13 @@ function draw() {
     aisleR3.draw();
     aisleR4.draw();
     aisleR5.draw();
+
+    //CLOCK
+    // clock();
+
+    //DRAW ELVES
+    elfOne.changeSrc(0); //display Elf 1
+    elfTwo.changeSrc(0); //display Elf 2
     designGrid();
 }
 
@@ -117,6 +123,46 @@ function designGrid() {
         ctx.closePath();
     }
 }
+//  ######  ##     ## ########   #######  ##    ##  #######  
+// ##    ## ##     ## ##     ## ##     ## ###   ## ##     ## 
+// ##       ##     ## ##     ## ##     ## ####  ## ##     ## 
+// ##       ######### ########  ##     ## ## ## ## ##     ## 
+// ##       ##     ## ##   ##   ##     ## ##  #### ##     ## 
+// ##    ## ##     ## ##    ##  ##     ## ##   ### ##     ## 
+//  ######  ##     ## ##     ##  #######  ##    ##  #######  
+
+
+
+// ##     ##  #######  ##     ## ######## ##     ## ######## ##    ## ########  ######  
+// ###   ### ##     ## ##     ## ##       ###   ### ##       ###   ##    ##    ##    ## 
+// #### #### ##     ## ##     ## ##       #### #### ##       ####  ##    ##    ##       
+// ## ### ## ##     ## ##     ## ######   ## ### ## ######   ## ## ##    ##     ######  
+// ##     ## ##     ##  ##   ##  ##       ##     ## ##       ##  ####    ##          ## 
+// ##     ## ##     ##   ## ##   ##       ##     ## ##       ##   ###    ##    ##    ## 
+// ##     ##  #######     ###    ######## ##     ## ######## ##    ##    ##     ######  
+
+let costume = false;
+
+document.addEventListener('mousedown', e => {
+    this.elfOne.x = e.offsetX;
+    this.elfOne.y = e.offsetY;
+    // costume = true;
+});
+
+document.addEventListener('mousemove', e => {
+
+})
+document.addEventListener('mouseup', e => {
+    if (costume === true) {
+        this.elfOne.changeSrc(0);
+        costume = false;
+    }
+})
+
+
+
+
+
 
 //    ###    ##    ## #### ##     ##    ##        #######   #######  ########  
 //   ## ##   ###   ##  ##  ###   ###    ##       ##     ## ##     ## ##     ## 
@@ -148,6 +194,8 @@ function animLoop() {
 //  ######     ##    ##     ## ##     ##    ##        ######   ##     ## ##     ## ######## 
 
 
+let startedAt;
+
 function startGame() {
     if (raf) {
         cancelAnimationFrame(raf);
@@ -173,9 +221,13 @@ function startGame() {
     aisleR3 = new Obstacles(575, 350, 250, 25, "blue");
     aisleR4 = new Obstacles(575, 450, 250, 25, "blue");
     aisleR5 = new Obstacles(575, 550, 250, 25, "blue");
+    //CLOCK INVOKE
+    // clock = new Countdown(12);
+
+    startedAt = new Date().getTime()
 
     raf = requestAnimationFrame(animLoop);
-    drawBoard();
+    // drawBoard();
     draw();
     animLoop();
 }
