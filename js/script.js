@@ -12,6 +12,9 @@ var belt;
 // Characters variables
 var elfOne;
 var elfTwo;
+//Time variable
+let startedAt;
+let endAt = 120000; // 2min per game.
 
 
 // ########   #######     ###    ########  ########  
@@ -52,11 +55,11 @@ function draw() {
     giftList.draw(); // print wishlist randomly picked on the board
     belt.draw();
 
-    // chrono
+    // chrono A TRANSFORMER EN COMPTE A REBOURD 
     const elapsed = new Date().getTime() - startedAt; // 78987
     const seconds = Math.floor(elapsed / 1000) % 60; // 78 % 60 -> 18
-    const minutes = Math.floor(elapsed / 60000);
-    var time =
+    const minutes = Math.floor(elapsed / 60000); // 1
+    var time = //
 
 
         //---???---MAYBE AISLE DRAW FUNCTION
@@ -194,7 +197,7 @@ function animLoop() {
 //  ######     ##    ##     ## ##     ##    ##        ######   ##     ## ##     ## ######## 
 
 
-let startedAt;
+
 
 function startGame() {
     if (raf) {
@@ -225,6 +228,7 @@ function startGame() {
     // clock = new Countdown(12);
 
     startedAt = new Date().getTime()
+
 
     raf = requestAnimationFrame(animLoop);
     // drawBoard();
