@@ -7,14 +7,15 @@ const H = ctx.canvas.height;
 var G = 50; // GRID FINE TUNING - ONE SIDE OF A GRID SQUARE
 // Gameplay variables
 var gameover = false;
-var giftList;
+var giftList; // The current wish list for the game.
+var giftArr = []; //Contain all the gift objects invoked.
 var belt;
 // Characters variables
 var elfOne;
 var elfTwo;
 //Time variable
 let startedAt;
-let endAt = 12000; // 2min per game.
+let endAt = 120000; // 2min per game === 120000
 
 
 // ########   #######     ###    ########  ########  
@@ -96,14 +97,32 @@ function draw() {
     aisleR4.draw();
     aisleR5.draw();
 
-    //CLOCK
-    // clock();
+    //DRAW GIFTS
+    bike.giftImg(0);
+    car.giftImg(1);
+
 
     //DRAW ELVES
-    elfOne.changeSrc(0); //display Elf 1
+    // elfOne.changeSrc(0); //display Elf 1
     elfTwo.changeSrc(0); //display Elf 2
+
+
+    giftArr.forEach((el) => {
+        if (el.pickUp(elfOne)) {
+            elfOne.changeSrc(1);
+        } else {
+            elfOne.changeSrc(0);
+        }
+    });
+
+
+
+
+
+
     designGrid();
-}
+
+} //END DRAW FUNCTION
 
 
 // ########  ########  ######  ####  ######   ##    ##     ######   ########  #### ########  
@@ -236,9 +255,13 @@ function startGame() {
     aisleR3 = new Obstacles(575, 350, 250, 25, "blue");
     aisleR4 = new Obstacles(575, 450, 250, 25, "blue");
     aisleR5 = new Obstacles(575, 550, 250, 25, "blue");
-    //CLOCK INVOKE
-    // clock = new Countdown(12);
+    //GIFT INVOKE
+    bike = new Gift("Bike", 0, 100, 200);
+    car = new Gift("Car", 0, 100, 300);
+    //PUSH IN ARRAY TO ITERATE ON EACH
+    giftArr.push(bike, car);
 
+    //GAME START TIME
     startedAt = new Date().getTime()
 
 
@@ -252,3 +275,24 @@ startGame();
 
 
 // ON CLICK DOWN ==> method pour guider en maintenant cliqué les elfs.
+
+
+/*
+
+Elf should go into an aisle to pick up a gift written on the list.
+And then drop them on the belt.
+
+1 - Make gift appear on the right place
+2 - Test for each gift if Elf is on it or not
+    In order to create this, we need to iterate on each gift to know if the Elf is not on it.
+3 - change Elf image.
+
+
+Gift location can be shuffled every 15 seconds.
+
+Or
+
+Elf should run on gifts which appeared randomly on the board and bring them to the belt.
+
+
+*/

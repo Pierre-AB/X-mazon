@@ -3,24 +3,30 @@ console.log('link gifts ok');
 
 
 class Gift {
-    constructor(name, imageLink, weight, x, y) {
+    constructor(name, weight, x, y) {
         this.name = name;
         this.weight = weight; // MAYBE A NEXT FEATURE
-        const giftImage = document.createElement('img');
+        this.img = document.createElement('img');
+        this.srcs = ["./assets/Gifts/bike-1.jpg", "./assets/Gifts/car-toy-1.jpg", "./assets/Gifts/construction-block-1.jpg", "../assets/Gifts/doll-2.png"];
         this.x = x;
         this.y = y;
-        giftImage.onload = () => {
-            this.giftImage = giftImage;
-            const imgRatio = giftImage.naturalWidth / giftImage.naturalHeight;
-            this.w = 100; // TO BE CHANGED ACCORDING TO THE BOARD
-            this.h = this.w / imgRatio;
-            this.draw()
-        }
-        giftImage.src = imageLink;
     }
-    draw() {
-        if (!this.giftImage) return;
-        ctx.drawImage(this.giftImage, this.x, this.y, this.w, this.h);
+    giftImg(i) {
+        const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
+        this.w = 40;
+        this.h = this.w / imgRatio;
+        this.img.src = this.srcs[i];
+        this.draw()
+    }
 
+    draw() {
+        if (!this.img) return;
+        ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+    }
+    pickUp(elf) {
+        return (this.y + this.h > elf.y &&
+            this.y < elf.y + elf.h &&
+            this.x + this.w > elf.x &&
+            this.x < elf.x + elf.w);
     }
 }
