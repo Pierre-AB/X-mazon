@@ -21,3 +21,11 @@ class Obstacles {
             this.x < elf.x + elf.w);
     }
 }
+
+class Belt extends Obstacles {
+    constructor(x, y, width, height, color) {
+        super(x, y, width, height, color);
+        this.image = 'TBD';
+    }
+
+}

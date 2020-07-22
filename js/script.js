@@ -14,7 +14,7 @@ var elfOne;
 var elfTwo;
 //Time variable
 let startedAt;
-let endAt = 120000; // 2min per game.
+let endAt = 12000; // 2min per game.
 
 
 // ########   #######     ###    ########  ########  
@@ -55,18 +55,36 @@ function draw() {
     giftList.draw(); // print wishlist randomly picked on the board
     belt.draw();
 
-    // chrono A TRANSFORMER EN COMPTE A REBOURD 
-    const elapsed = new Date().getTime() - startedAt; // 78987
-    const seconds = Math.floor(elapsed / 1000) % 60; // 78 % 60 -> 18
-    const minutes = Math.floor(elapsed / 60000); // 1
-    var time = //
+    //  ######  ##     ## ########   #######  ##    ##  #######  
+    // ##    ## ##     ## ##     ## ##     ## ###   ## ##     ## 
+    // ##       ##     ## ##     ## ##     ## ####  ## ##     ## 
+    // ##       ######### ########  ##     ## ## ## ## ##     ## 
+    // ##       ##     ## ##   ##   ##     ## ##  #### ##     ## 
+    // ##    ## ##     ## ##    ##  ##     ## ##   ### ##     ## 
+    //  ######  ##     ## ##     ##  #######  ##    ##  #######  
 
 
-        //---???---MAYBE AISLE DRAW FUNCTION
-        //--???---SHOULD I NOT DRAW THEM ONCE AND TEST COLLISION HERE ONLY?
+    const elapsed = new Date().getTime() - startedAt; // 78987 - 50000 = 28987
+    if (elapsed < endAt) {
+        const seconds = Math.floor((endAt - elapsed) / 1000) % 60; // 78 % 60 -> 18
+        const minutes = Math.floor((endAt - elapsed) / 60000); // 1
+        ctx.fillStyle = "white";
+        ctx.font = "30px sans-serif";
+        ctx.fillText(`${minutes} : ${seconds}`, 760, 50);
+        ctx.fillStyle = "black";
+        ctx.font = "16px sans-serif";
+    } else {
+        // ctx.fillText(`gameover`, 760, 50);
+        gameover = true;
+    }
 
-        // LEFT AISLE DRAW
-        aisleL1.draw();
+
+
+    //---???---MAYBE AISLE DRAW FUNCTION
+    //--???---SHOULD I NOT DRAW THEM ONCE AND TEST COLLISION HERE ONLY?
+
+    // LEFT AISLE DRAW
+    aisleL1.draw();
     aisleL2.draw();
     aisleL3.draw();
     aisleL4.draw();
@@ -126,13 +144,7 @@ function designGrid() {
         ctx.closePath();
     }
 }
-//  ######  ##     ## ########   #######  ##    ##  #######  
-// ##    ## ##     ## ##     ## ##     ## ###   ## ##     ## 
-// ##       ##     ## ##     ## ##     ## ####  ## ##     ## 
-// ##       ######### ########  ##     ## ## ## ## ##     ## 
-// ##       ##     ## ##   ##   ##     ## ##  #### ##     ## 
-// ##    ## ##     ## ##    ##  ##     ## ##   ### ##     ## 
-//  ######  ##     ## ##     ##  #######  ##    ##  #######  
+
 
 
 
