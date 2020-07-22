@@ -10,7 +10,7 @@ class Elf {
         this.srcs = ["./assets/character/happy-elf-male.png", "./assets/character/happy_elf_male_loaded.png"];
         this.changeSrc(0) // new Elf()
     }
-    changeSrc(i = 0) {
+    changeSrc(i) {
         // this.img.onload = () => {
         const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
         this.w = 40;

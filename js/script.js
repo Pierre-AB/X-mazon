@@ -15,7 +15,7 @@ var elfOne;
 var elfTwo;
 //Time variable
 let startedAt;
-let endAt = 120000; // 2min per game === 120000
+let endAt = 1200000; // 2min per game === 120000
 
 
 // ########   #######     ###    ########  ########  
@@ -98,19 +98,21 @@ function draw() {
     aisleR5.draw();
 
     //DRAW GIFTS
-    bike.giftImg(0);
-    car.giftImg(1);
+    // bike.giftImg(0);
+    // car.giftImg(1);
 
 
     //DRAW ELVES
     // elfOne.changeSrc(0); //display Elf 1
-    elfTwo.changeSrc(0); //display Elf 2
+    // elfTwo.changeSrc(0); //display Elf 2
 
 
     giftArr.forEach((el) => {
         if (el.pickUp(elfOne)) {
-            elfOne.changeSrc(1);
+            elfOne.changeSrc(1); // ADD PREVENT DEFAULT
+            // el.giftImg(1);
         } else {
+            el.giftImg(0);
             elfOne.changeSrc(0);
         }
     });
