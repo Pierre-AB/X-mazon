@@ -101,12 +101,14 @@ function draw() {
 
     //DRAW GIFTS
     // bike.giftImg(0);
-    // car.giftImg(1);
+    //car.giftImg(1);
 
 
     //DRAW ELVES
     // elfOne.changeSrc(0); //display Elf 1
     // elfTwo.changeSrc(0); //display Elf 2
+
+    //CHECK IF ELF IS STUCK
     stuck = aisles.some((obstacle) => {
         return elfOne.collision(obstacle);
     });

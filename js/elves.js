@@ -11,8 +11,12 @@ class Elf {
         this.changeSrc(0) // new Elf()
         this.charge = "";
         this.speed = 10;
-        this.nextX = this.x + this.speed;
-        this.nextY = this.y + this.speed;
+        this.nextUp = this.y - this.speed;
+        this.nextDown = this.y + this.speed;
+        this.nextRight = this.x - this.speed;
+        this.nextLeft = this.x + this.speed;
+        this.nextX = 0;
+        this.nextY = 0;
     }
     changeSrc(i) {
         // this.img.onload = () => {
@@ -30,9 +34,18 @@ class Elf {
     };
 
     moveUp() {
-        if (!stuck) {
-            this.y -= this.speed;
+        //_____
+        stuck = aisles.some((obstBottom) => {
+            if (this.nextUp
+        })
+
+        this.nextX = this.x;
+        this.nextY = this.nextUp;
+        if (this.collisionDetection(this.nextX, this.nextY, obstacle)) {
+            return console.log("can't move up");
         }
+        //_____
+        this.y -= this.speed;
     }
     moveDown() {
         if (!stuck) {
@@ -50,10 +63,13 @@ class Elf {
         }
     }
 
-    collision(obstacle) {
-        return (this.y + this.h > obstacle.y &&
-            this.y < obstacle.y + obstacle.h &&
-            this.x + this.w > obstacle.x &&
-            this.x < obstacle.x + obstacle.w);
+    collisionDetection(nextX, nextY, obstacle) {
+        return (this.nextY + this.h > obstacle.y &&
+            this.nextY < obstacle.y + obstacle.h &&
+            this.nextX + this.w > obstacle.x &&
+            this.nextX < obstacle.x + obstacle.w);
     }
 }
+
+
+/* When Elf moves and encounter an obstacle, he must not be able to move further however it should be free to go somewhere else */
