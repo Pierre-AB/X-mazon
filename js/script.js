@@ -10,6 +10,8 @@ var gameover = false;
 var giftList; // The current wish list for the game.
 var giftArr = []; //Contain all the gift objects invoked.
 var belt;
+var aisles = [];
+var stuck = false;
 // Characters variables
 var elfOne;
 var elfTwo;
@@ -105,10 +107,14 @@ function draw() {
     //DRAW ELVES
     // elfOne.changeSrc(0); //display Elf 1
     // elfTwo.changeSrc(0); //display Elf 2
+    stuck = aisles.some((obstacle) => {
+        return elfOne.collision(obstacle);
+    });
 
 
     giftArr.forEach((el) => {
         if (el.pickUp(elfOne)) {
+
             elfOne.changeSrc(1); // ADD PREVENT DEFAULT
             // el.giftImg(1);
         } else {
@@ -177,24 +183,53 @@ function designGrid() {
 // ##     ## ##     ##   ## ##   ##       ##     ## ##       ##   ###    ##    ##    ## 
 // ##     ##  #######     ###    ######## ##     ## ######## ##    ##    ##     ######  
 
-let costume = false;
+// function drag() {
 
-document.addEventListener('mousedown', e => {
-    this.elfOne.x = e.offsetX;
-    this.elfOne.y = e.offsetY;
-    // costume = true;
-});
+//     let costume = false;
 
-document.addEventListener('mousemove', e => {
+//     document.addEventListener('mousedown', e => {
+//         this.elfOne.x = e.offsetX;
+//         this.elfOne.y = e.offsetY;
+//         // costume = true;
+//     });
 
-})
-document.addEventListener('mouseup', e => {
-    if (costume === true) {
-        this.elfOne.changeSrc(0);
-        costume = false;
+//     document.addEventListener('mousemove', e => {
+
+//     })
+//     document.addEventListener('mouseup', e => {
+//         if (costume === true) {
+//             this.elfOne.changeSrc(0);
+//             costume = false;
+//         }
+//     })
+// };
+// function walking() {
+document.addEventListener("keydown", (e) => {
+    switch (e.keyCode) {
+        case 38:
+            elfOne.moveUp();
+            break;
+        case 40:
+            elfOne.moveDown();
+            break;
+        case 37:
+            elfOne.moveLeft();
+            break;
+        case 39:
+            elfOne.moveRight();
+            break;
     }
 })
+// };
 
+function blocked() {
+    stuck = aisles.some((obstacle) => {
+        return elfOne.collision(obstacle);
+    });
+    if (stuck) {
+
+    }
+}
 
 
 
@@ -257,10 +292,13 @@ function startGame() {
     aisleR3 = new Obstacles(575, 350, 250, 25, "blue");
     aisleR4 = new Obstacles(575, 450, 250, 25, "blue");
     aisleR5 = new Obstacles(575, 550, 250, 25, "blue");
+    //PUSH AISLES IN ARRAY TO ITERATE ON EACH
+    aisles.push(aisleL1, aisleL2, aisleL3, aisleL4, aisleL5, aisleR1, aisleR2, aisleR3, aisleR4, aisleR5);
+
     //GIFT INVOKE
     bike = new Gift("Bike", 0, 100, 200);
     car = new Gift("Car", 0, 100, 300);
-    //PUSH IN ARRAY TO ITERATE ON EACH
+    //PUSH GIFTS IN ARRAY TO ITERATE ON EACH
     giftArr.push(bike, car);
 
     //GAME START TIME
