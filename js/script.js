@@ -109,9 +109,15 @@ function draw() {
     // elfTwo.changeSrc(0); //display Elf 2
 
     //CHECK IF ELF IS STUCK
-    stuck = aisles.some((obstacle) => {
-        return elfOne.collision(obstacle);
+    let theObstacle;
+    aisles.forEach((obstacle) => {
+        if (elfOne.collision(obstacle)) {
+            theObstacle = obstacle
+        }
     });
+    console.log(theObstacle);
+
+    // 
 
 
     giftArr.forEach((el) => {

@@ -34,16 +34,18 @@ class Elf {
     };
 
     moveUp() {
-        //_____
-        stuck = aisles.some((obstBottom) => {
-            if (this.nextUp
-        })
 
-        this.nextX = this.x;
-        this.nextY = this.nextUp;
-        if (this.collisionDetection(this.nextX, this.nextY, obstacle)) {
-            return console.log("can't move up");
-        }
+        // OPTION DE FAIRE UN ARRAY DE TOUTES LES COORDONNEES DOWN
+        //_____
+        // aisles.
+        //     }
+        // })
+
+        // this.nextX = this.x;
+        // this.nextY = this.nextUp;
+        // if (this.collisionDetection(this.nextX, this.nextY, obstacle)) {
+        //     return console.log("can't move up");
+        // }
         //_____
         this.y -= this.speed;
     }
@@ -63,11 +65,11 @@ class Elf {
         }
     }
 
-    collisionDetection(nextX, nextY, obstacle) {
-        return (this.nextY + this.h > obstacle.y &&
-            this.nextY < obstacle.y + obstacle.h &&
-            this.nextX + this.w > obstacle.x &&
-            this.nextX < obstacle.x + obstacle.w);
+    collision(obstacle) {
+        return (this.y + this.h > obstacle.y &&
+            this.y < obstacle.y + obstacle.h &&
+            this.x + this.w > obstacle.x &&
+            this.x < obstacle.x + obstacle.w);
     }
 }
 
