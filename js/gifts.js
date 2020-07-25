@@ -7,7 +7,6 @@ class Gift {
         this.name = name;
         this.weight = weight; // MAYBE A NEXT FEATURE
         this.img = document.createElement('img');
-        // this.srcs = ["./assets/Gifts/bike-1.jpg", "./assets/Gifts/car-toy-1.jpg", "./assets/Gifts/construction-block-1.jpg", "../assets/Gifts/doll-2.png"];
         this.srcs = {
             'Bike': "./assets/Gifts/bike-1.jpg",
             'Car': "./assets/Gifts/car-toy-1.jpg",

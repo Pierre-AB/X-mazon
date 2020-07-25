@@ -102,14 +102,17 @@ function draw() {
     //GIFTS COLLECT + DRAW OBJECTS
     for (let i = 0; i < giftArr.length; i++) {
         if (elfOne.collision(giftArr[i])) {
-            elfOne.charge = giftArr[i].name
+            elfOne.charge = giftArr[i]
             // elfOne.changeSrc(1); // A CHANGER EN FONCTION DE this.charge
             // console.log(elfOne.img.src);
             console.log(elfOne.charge);
             giftArr.splice(i, 1);
             console.log(giftArr);
         }
-        giftArr[i].giftImg(giftArr[i].name);
+        if (giftArr[i]) {
+            giftArr[i].giftImg(giftArr[i].name);
+
+        }
         elfOne.changeSrc(0);
     }
 
@@ -126,17 +129,38 @@ function draw() {
     // console.log(theObstacle);
 
     // DROPPING GIFT IN santasHood
-
     if (theObstacle == belt) {
         if (giftList.wishList.indexOf(elfOne.charge) >= 0) {
             santasHood.push(elfOne.charge);
             elfOne.charge = undefined;
+            santasHood.forEach((el, index) => {
+                // Ajouter des objets dans un tableau au lieu de string.
+                const gift = giftList.find((gift) => {
+                    return gift.name === el;
+                });
+                gift.x = belt.x - belt.w / 2 - gift.w / 2;
+                const i = (belt.h - santasHood.length * gift.h) / santasHood.length + 1;
+                gift.y = (index + 1) * i + index * gift.h;
+                console.log(index, gift.y);
+                gift.giftImg(gift.name);
+            });
         } else {
             console.log('not selected toy');
         }
     }
 
     elfOne.decay();
+
+
+    //         H
+    // <--------------------->
+    //   [ ]  [ ]  [ ]  [ ]
+    // --
+
+    // H = 5i+4h
+    // i = (H-4h)/5
+    // H = 
+    // 3i+2h (3e y)
 
     wishListCompleted();
 
@@ -256,7 +280,16 @@ function wishListCompleted() {
 
 }
 
+// ########     ###    ##    ## ########     ########   #######   ######  
+// ##     ##   ## ##   ###   ## ##     ##    ##     ## ##     ## ##    ## 
+// ##     ##  ##   ##  ####  ## ##     ##    ##     ## ##     ## ##       
+// ########  ##     ## ## ## ## ##     ##    ########  ##     ##  ######  
+// ##   ##   ######### ##  #### ##     ##    ##        ##     ##       ## 
+// ##    ##  ##     ## ##   ### ##     ##    ##        ##     ## ##    ## 
+// ##     ## ##     ## ##    ## ########     ##         #######   ######  
 
+// function randomGiftX(){}
+// Math.random
 
 
 
