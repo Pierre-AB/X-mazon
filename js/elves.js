@@ -10,7 +10,7 @@ class Elf {
             "./assets/character/happy_elf_male_loaded.png",
         ];
         this.changeSrc(0); // new Elf()
-        this.charge = "";
+        this.charge;
         this.speed = 10;
         // this.nextUp = this.y - this.speed;
         // this.nextDown = this.y + this.speed;

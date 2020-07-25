@@ -12,7 +12,11 @@ class Gift {
             'Bike': "./assets/Gifts/bike-1.jpg",
             'Car': "./assets/Gifts/car-toy-1.jpg",
             'Construction Blocks': "./assets/Gifts/construction-block-1.jpg",
-            'Doll': "./assets/Gifts/doll-2.png"
+            'Doll': "./assets/Gifts/doll-2.png",
+            'Video Game': "./assets/Gifts/video-game.jpg",
+            'Candy': "./assets/Gifts/lollipop-swirl.jpg",
+            'Books': "./assets/Gifts/books.webp",
+            'Hi-Tech Stuff': "./assets/Gifts/pcb.jpg"
         }
         this.x = x;
         this.y = y;

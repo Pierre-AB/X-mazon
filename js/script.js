@@ -12,12 +12,19 @@ var giftArr = []; //Contain all the gift objects invoked.
 var santasHood = [];
 var belt;
 var aisles = [];
-var stuck = false;
 var theObstacle;
-var theGift
+var happyChild = 0;
 // Characters variables
 var elfOne;
-var elfTwo;
+// Gifts variables
+var videoGame;
+var hiTech;
+var candy;
+var books;
+var bike;
+var car;
+var lego;
+var doll;
 //Time variable
 let startedAt;
 let endAt = 1200000; // 2min per game === 120000
@@ -32,14 +39,6 @@ let endAt = 1200000; // 2min per game === 120000
 
 const woodFloor = new Image();
 woodFloor.src = "./assets/background/Woodfloor_oneimage.jpg";
-
-// ##      ## ####  ######  ##     ## ##       ####  ######  ########
-// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##
-// ##  ##  ##  ##  ##       ##     ## ##        ##  ##          ##
-// ##  ##  ##  ##   ######  ######### ##        ##   ######     ##
-// ##  ##  ##  ##        ## ##     ## ##        ##        ##    ##
-// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##
-//  ###  ###  ####  ######  ##     ## ######## ####  ######     ##
 
 // ########  ########     ###    ##      ##
 // ##     ## ##     ##   ## ##   ##  ##  ##
@@ -90,12 +89,6 @@ function draw() {
     aisleR4.draw();
     aisleR5.draw();
 
-    //DRAW GIFTS
-
-    //DRAW ELVES
-    // elfOne.changeSrc(0); //display Elf 1
-    // elfTwo.changeSrc(0); //display Elf 2
-
     //  ######   #######  ##       ##       ####  ######  ####  #######  ##    ## 
     // ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ###   ## 
     // ##       ##     ## ##       ##        ##  ##        ##  ##     ## ####  ## 
@@ -132,22 +125,22 @@ function draw() {
 
     // console.log(theObstacle);
 
-    elfOne.decay();
-
-
-    // DROPPING GIFT
+    // DROPPING GIFT IN santasHood
 
     if (theObstacle == belt) {
-        if (giftList.wishlist.indexOf(elfOne.charge) >= 0) {
-
+        if (giftList.wishList.indexOf(elfOne.charge) >= 0) {
+            santasHood.push(elfOne.charge);
+            elfOne.charge = undefined;
+        } else {
+            console.log('not selected toy');
         }
     }
 
+    elfOne.decay();
+
+    wishListCompleted();
 
     //IMPROVE DRAW FUNCTION IN ELF OBJECT
-
-
-
 
 
     elfOne.draw();
@@ -156,16 +149,6 @@ function draw() {
     // Changer l'image de l'elf en fonction de la valeur de this.charge
     // ATTENTION: si plus d'objet, l'elf n'est plus affiché
     // elf-> lastStatus to order 
-
-    // giftArr.forEach((el) => {
-    //     if (el.pickUp(elfOne)) {
-    //         elfOne.changeSrc(1); // ADD PREVENT DEFAULT
-    //         // el.giftImg(1);
-    //     } else {
-    //         el.giftImg(0);
-    //         elfOne.changeSrc(0);
-    //     }
-    // });
 
     designGrid();
 
@@ -255,6 +238,28 @@ function animLoop() {
     }
 }
 
+// ##      ## ####  ######  ##     ## ##       ####  ######  ########     ######   #######  ##     ## ########  ##       ######## ######## ######## ########  
+// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ###   ### ##     ## ##       ##          ##    ##       ##     ## 
+// ##  ##  ##  ##  ##       ##     ## ##        ##  ##          ##       ##       ##     ## #### #### ##     ## ##       ##          ##    ##       ##     ## 
+// ##  ##  ##  ##   ######  ######### ##        ##   ######     ##       ##       ##     ## ## ### ## ########  ##       ######      ##    ######   ##     ## 
+// ##  ##  ##  ##        ## ##     ## ##        ##        ##    ##       ##       ##     ## ##     ## ##        ##       ##          ##    ##       ##     ## 
+// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ##     ## ##        ##       ##          ##    ##       ##     ## 
+//  ###  ###  ####  ######  ##     ## ######## ####  ######     ##        ######   #######  ##     ## ##        ######## ########    ##    ######## ########  
+
+function wishListCompleted() {
+    if (santasHood.length === giftList.wishList.length) {
+        happyChild++;
+        giftList.wishList = [];
+        santasHood = [];
+        giftList.newWishList();
+    }
+
+}
+
+
+
+
+
 //  ######  ########    ###    ########  ########     ######      ###    ##     ## ########
 // ##    ##    ##      ## ##   ##     ##    ##       ##    ##    ## ##   ###   ### ##
 // ##          ##     ##   ##  ##     ##    ##       ##         ##   ##  #### #### ##
@@ -271,6 +276,7 @@ function startGame() {
     //INVOKE ALL OBJECTS
     //INVOKE ELVES
     elfOne = new Elf(350, 200);
+    //INVOKE NEW WISHLIST
     giftList = new Wishlist(); //invoke new wishlist object.
     giftList.newWishList(); //create a new random wishList.
     //CENTER BELT INVOKE
@@ -307,8 +313,12 @@ function startGame() {
     car = new Gift("Car", 0, 100, 300);
     lego = new Gift("Construction Blocks", 0, 100, 400);
     doll = new Gift("Doll", 0, 100, 500);
+    videoGame = new Gift("Video Game", 0, 750, 200);
+    candy = new Gift("Candy", 0, 750, 300);
+    books = new Gift("Books", 0, 750, 400);
+    hiTech = new Gift("Hi-Tech Stuff", 0, 750, 500);
     //PUSH GIFTS IN ARRAY TO ITERATE ON EACH
-    giftArr.push(bike, car, lego, doll);
+    giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
 
     //GAME START TIME
     startedAt = new Date().getTime();
