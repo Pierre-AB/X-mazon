@@ -1,22 +1,24 @@
-console.log('link elves ok');
-
-
+console.log("link elves ok");
 
 class Elf {
     constructor(startX, startY) {
         this.x = startX; // where to place Elf on X at the beginnning og the game.
         this.y = startY; // where to place Elf on Y at the beginnning og the game.
-        this.img = document.createElement('img'); // <img>
-        this.srcs = ["./assets/character/happy-elf-male.png", "./assets/character/happy_elf_male_loaded.png"];
-        this.changeSrc(0) // new Elf()
+        this.img = document.createElement("img"); // <img>
+        this.srcs = [
+            "./assets/character/happy-elf-male.png",
+            "./assets/character/happy_elf_male_loaded.png",
+        ];
+        this.changeSrc(0); // new Elf()
         this.charge = "";
         this.speed = 10;
-        this.nextUp = this.y - this.speed;
-        this.nextDown = this.y + this.speed;
-        this.nextRight = this.x - this.speed;
-        this.nextLeft = this.x + this.speed;
-        this.nextX = 0;
-        this.nextY = 0;
+        // this.nextUp = this.y - this.speed;
+        // this.nextDown = this.y + this.speed;
+        // this.nextRight = this.x - this.speed;
+        // this.nextLeft = this.x + this.speed;
+        // this.nextX = 0;
+        // this.nextY = 0;
+        this.lastmove = undefined;
     }
     changeSrc(i) {
         // this.img.onload = () => {
@@ -24,54 +26,75 @@ class Elf {
         this.w = 40;
         this.h = this.w / imgRatio;
         this.img.src = this.srcs[i];
-        this.draw()
+        this.draw();
         // }
-
     }
     draw() {
+        // ctx.fillRect(this.x, this.y, this.w, this.h);
         if (!this.img) return;
         ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-    };
+    }
+
+    decay() { // DETECTION DU DEPLACEMENT A CHAQUE INSTANT ET NON PAS A CHAQUE MOUVEMENT
+        switch (this.lastmove) {
+            case 'up':
+                if (theObstacle) {
+                    // decalage bas
+                    this.y = theObstacle.y + theObstacle.h;
+                }
+                break;
+            case 'down':
+                if (theObstacle) {
+                    //décalage haut
+                    this.y = theObstacle.y - this.h;
+                }
+                break;
+            case 'right':
+                if (theObstacle) {
+                    this.x = theObstacle.x - this.w;
+                }
+                break;
+            case 'left':
+                if (theObstacle) {
+                    this.x = theObstacle.x + theObstacle.w;
+                }
+                break;
+        }
+    }
 
     moveUp() {
+        console.log('moveup')
+        this.lastmove = 'up';
 
-        // OPTION DE FAIRE UN ARRAY DE TOUTES LES COORDONNEES DOWN
-        //_____
-        // aisles.
-        //     }
-        // })
-
-        // this.nextX = this.x;
-        // this.nextY = this.nextUp;
-        // if (this.collisionDetection(this.nextX, this.nextY, obstacle)) {
-        //     return console.log("can't move up");
-        // }
-        //_____
         this.y -= this.speed;
     }
     moveDown() {
+        this.lastmove = 'down';
         if (!stuck) {
             this.y += this.speed;
         }
     }
     moveRight() {
+        this.lastmove = 'right';
         if (!stuck) {
             this.x += this.speed;
         }
     }
     moveLeft() {
+        this.lastmove = 'left';
         if (!stuck) {
             this.x -= this.speed;
         }
     }
 
     collision(obstacle) {
-        return (this.y + this.h > obstacle.y &&
+        return (
+            this.y + this.h > obstacle.y &&
             this.y < obstacle.y + obstacle.h &&
             this.x + this.w > obstacle.x &&
-            this.x < obstacle.x + obstacle.w);
+            this.x < obstacle.x + obstacle.w
+        );
     }
 }
-
 
 /* When Elf moves and encounter an obstacle, he must not be able to move further however it should be free to go somewhere else */
