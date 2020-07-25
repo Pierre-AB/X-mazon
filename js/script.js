@@ -7,12 +7,14 @@ const H = ctx.canvas.height;
 var G = 50; // GRID FINE TUNING - ONE SIDE OF A GRID SQUARE
 // Gameplay variables
 var gameover = false;
-var giftList; // The current wish list for the game.
+var giftList; // object containing the wishlist -> giftList.wishlist is the current game list
 var giftArr = []; //Contain all the gift objects invoked.
+var santasHood = [];
 var belt;
 var aisles = [];
 var stuck = false;
 var theObstacle;
+var theGift
 // Characters variables
 var elfOne;
 var elfTwo;
@@ -51,7 +53,6 @@ function draw() {
     ctx.clearRect(0, 0, W, H); // --???-- A BIT HARDCORE NO ??
     ctx.drawImage(woodFloor, 0, 0, W, H);
     giftList.draw(); // print wishlist randomly picked on the board
-    belt.draw();
 
     //  ######  ##     ## ########   #######  ##    ##  #######
     // ##    ## ##     ## ##     ## ##     ## ###   ## ##     ##
@@ -75,9 +76,7 @@ function draw() {
         gameover = true;
     }
 
-    //---???---MAYBE AISLE DRAW FUNCTION
-    //--???---SHOULD I NOT DRAW THEM ONCE AND TEST COLLISION HERE ONLY?
-
+    belt.draw();
     // LEFT AISLE DRAW
     aisleL1.draw();
     aisleL2.draw();
@@ -92,36 +91,85 @@ function draw() {
     aisleR5.draw();
 
     //DRAW GIFTS
-    // bike.giftImg(0);
-    //car.giftImg(1);
 
     //DRAW ELVES
     // elfOne.changeSrc(0); //display Elf 1
     // elfTwo.changeSrc(0); //display Elf 2
 
+    //  ######   #######  ##       ##       ####  ######  ####  #######  ##    ## 
+    // ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ###   ## 
+    // ##       ##     ## ##       ##        ##  ##        ##  ##     ## ####  ## 
+    // ##       ##     ## ##       ##        ##   ######   ##  ##     ## ## ## ## 
+    // ##       ##     ## ##       ##        ##        ##  ##  ##     ## ##  #### 
+    // ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ##   ### 
+    //  ######   #######  ######## ######## ####  ######  ####  #######  ##    ## 
+
+
+
+    //GIFTS COLLECT + DRAW OBJECTS
+    for (let i = 0; i < giftArr.length; i++) {
+        if (elfOne.collision(giftArr[i])) {
+            elfOne.charge = giftArr[i].name
+            // elfOne.changeSrc(1); // A CHANGER EN FONCTION DE this.charge
+            // console.log(elfOne.img.src);
+            console.log(elfOne.charge);
+            giftArr.splice(i, 1);
+            console.log(giftArr);
+        }
+        giftArr[i].giftImg(giftArr[i].name);
+        elfOne.changeSrc(0);
+    }
+
     //CHECK IF ELF IS STUCK
 
     theObstacle = undefined;
-    aisles.forEach((obstacle) => {
+    aisles.forEach((obstacle) => { // ON NE PEUT PAS BREAKER SUR FOR EACH
         if (elfOne.collision(obstacle)) {
             theObstacle = obstacle;
+            console.log(theObstacle);
         }
     });
+
     // console.log(theObstacle);
 
     elfOne.decay();
 
-    giftArr.forEach((el) => {
-        if (el.pickUp(elfOne)) {
-            elfOne.changeSrc(1); // ADD PREVENT DEFAULT
-            // el.giftImg(1);
-        } else {
-            el.giftImg(0);
-            elfOne.changeSrc(0);
+
+    // DROPPING GIFT
+
+    if (theObstacle == belt) {
+        if (giftList.wishlist.indexOf(elfOne.charge) >= 0) {
+
         }
-    });
+    }
+
+
+    //IMPROVE DRAW FUNCTION IN ELF OBJECT
+
+
+
+
+
+    elfOne.draw();
+
+    // Enlever la valeur de l'objet picked-up dans giftArr
+    // Changer l'image de l'elf en fonction de la valeur de this.charge
+    // ATTENTION: si plus d'objet, l'elf n'est plus affiché
+    // elf-> lastStatus to order 
+
+    // giftArr.forEach((el) => {
+    //     if (el.pickUp(elfOne)) {
+    //         elfOne.changeSrc(1); // ADD PREVENT DEFAULT
+    //         // el.giftImg(1);
+    //     } else {
+    //         el.giftImg(0);
+    //         elfOne.changeSrc(0);
+    //     }
+    // });
 
     designGrid();
+
+
 } //END DRAW FUNCTION
 
 // ########  ########  ######  ####  ######   ##    ##     ######   ########  #### ########
@@ -170,27 +218,6 @@ function designGrid() {
 // ##     ## ##     ##   ## ##   ##       ##     ## ##       ##   ###    ##    ##    ##
 // ##     ##  #######     ###    ######## ##     ## ######## ##    ##    ##     ######
 
-// function drag() {
-
-//     let costume = false;
-
-//     document.addEventListener('mousedown', e => {
-//         this.elfOne.x = e.offsetX;
-//         this.elfOne.y = e.offsetY;
-//         // costume = true;
-//     });
-
-//     document.addEventListener('mousemove', e => {
-
-//     })
-//     document.addEventListener('mouseup', e => {
-//         if (costume === true) {
-//             this.elfOne.changeSrc(0);
-//             costume = false;
-//         }
-//     })
-// };
-// function walking() {
 document.addEventListener("keydown", (e) => {
     switch (e.keyCode) {
         case 38:
@@ -207,14 +234,6 @@ document.addEventListener("keydown", (e) => {
             break;
     }
 });
-// };
-
-function blocked() {
-    stuck = aisles.some((obstacle) => {
-        return elfOne.collision(obstacle);
-    });
-    if (stuck) {}
-}
 
 //    ###    ##    ## #### ##     ##    ##        #######   #######  ########
 //   ## ##   ###   ##  ##  ###   ###    ##       ##     ## ##     ## ##     ##
@@ -224,7 +243,6 @@ function blocked() {
 // ##     ## ##   ###  ##  ##     ##    ##       ##     ## ##     ## ##
 // ##     ## ##    ## #### ##     ##    ########  #######   #######  ##
 
-//ANIMATION LOOP
 let frames = 0;
 let raf;
 
@@ -253,11 +271,10 @@ function startGame() {
     //INVOKE ALL OBJECTS
     //INVOKE ELVES
     elfOne = new Elf(350, 200);
-    elfTwo = new Elf(500, 375);
     giftList = new Wishlist(); //invoke new wishlist object.
     giftList.newWishList(); //create a new random wishList.
     //CENTER BELT INVOKE
-    belt = new Obstacles(425, 175, 50, 300, "orange");
+    belt = new Belt(425, 175, 50, 300, "orange");
     //LEFT AISLES INVOKE
     aisleL1 = new Obstacles(75, 150, 250, 25, "blue");
     aisleL2 = new Obstacles(75, 250, 250, 25, "blue");
@@ -272,6 +289,7 @@ function startGame() {
     aisleR5 = new Obstacles(575, 550, 250, 25, "blue");
     //PUSH AISLES IN ARRAY TO ITERATE ON EACH
     aisles.push(
+        belt,
         aisleL1,
         aisleL2,
         aisleL3,
@@ -287,8 +305,10 @@ function startGame() {
     //GIFT INVOKE
     bike = new Gift("Bike", 0, 100, 200);
     car = new Gift("Car", 0, 100, 300);
+    lego = new Gift("Construction Blocks", 0, 100, 400);
+    doll = new Gift("Doll", 0, 100, 500);
     //PUSH GIFTS IN ARRAY TO ITERATE ON EACH
-    giftArr.push(bike, car);
+    giftArr.push(bike, car, lego, doll);
 
     //GAME START TIME
     startedAt = new Date().getTime();

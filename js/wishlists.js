@@ -10,7 +10,7 @@ class Wishlist {
         this.x = 600;
         this.y = 23;
         this.w = 150;
-        this.gifts = ['Car', 'Bike', 'Video Game', 'Candy', 'Dolls', 'Construction Blocks', 'Books', 'Hi-Tech Stuff'];
+        this.gifts = ['Car', 'Bike', 'Video Game', 'Candy', 'Doll', 'Construction Blocks', 'Books', 'Hi-Tech Stuff'];
         this.wishList = [];
         this.img = new Image();
         // this.img.src = "./assets/background/santa-wishlist.png";

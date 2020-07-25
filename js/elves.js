@@ -26,7 +26,7 @@ class Elf {
         this.w = 40;
         this.h = this.w / imgRatio;
         this.img.src = this.srcs[i];
-        this.draw();
+        // this.draw();
         // }
     }
     draw() {
@@ -63,28 +63,22 @@ class Elf {
     }
 
     moveUp() {
-        console.log('moveup')
         this.lastmove = 'up';
-
         this.y -= this.speed;
     }
     moveDown() {
         this.lastmove = 'down';
-        if (!stuck) {
-            this.y += this.speed;
-        }
+        this.y += this.speed;
     }
     moveRight() {
         this.lastmove = 'right';
-        if (!stuck) {
-            this.x += this.speed;
-        }
+        this.x += this.speed;
     }
     moveLeft() {
         this.lastmove = 'left';
-        if (!stuck) {
-            this.x -= this.speed;
-        }
+        this.x -= this.speed;
+        // console.log(elfOne.img.src);
+        // console.log(elfOne.charge);
     }
 
     collision(obstacle) {

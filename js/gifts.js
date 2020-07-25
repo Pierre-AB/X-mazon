@@ -7,15 +7,21 @@ class Gift {
         this.name = name;
         this.weight = weight; // MAYBE A NEXT FEATURE
         this.img = document.createElement('img');
-        this.srcs = ["./assets/Gifts/bike-1.jpg", "./assets/Gifts/car-toy-1.jpg", "./assets/Gifts/construction-block-1.jpg", "../assets/Gifts/doll-2.png"];
+        // this.srcs = ["./assets/Gifts/bike-1.jpg", "./assets/Gifts/car-toy-1.jpg", "./assets/Gifts/construction-block-1.jpg", "../assets/Gifts/doll-2.png"];
+        this.srcs = {
+            'Bike': "./assets/Gifts/bike-1.jpg",
+            'Car': "./assets/Gifts/car-toy-1.jpg",
+            'Construction Blocks': "./assets/Gifts/construction-block-1.jpg",
+            'Doll': "./assets/Gifts/doll-2.png"
+        }
         this.x = x;
         this.y = y;
     }
-    giftImg(i) {
+    giftImg(name) {
         const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
         this.w = 40;
         this.h = this.w / imgRatio;
-        this.img.src = this.srcs[i];
+        this.img.src = this.srcs[name];
         this.draw()
     }
 
