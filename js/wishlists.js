@@ -27,13 +27,13 @@ class Wishlist {
         ctx.fillStyle = "black";
         ctx.font = "16px sans-serif";
         this.wishList.forEach((el) => {
-            ctx.fillText(el, this.x, this.y + nextItem);
+            ctx.fillText(el.name, this.x, this.y + nextItem);
             nextItem += 23;
         })
     }
 
     newWishList() {
-        var shuffledWishList = this.gifts.sort(function (a, b) {
+        var shuffledWishList = giftArr.sort(function (a, b) {
             return Math.random() - 0.5;
         });
         for (let i = 0; i < 4; i++) {

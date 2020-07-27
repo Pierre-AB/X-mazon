@@ -89,37 +89,20 @@ function draw() {
     aisleR4.draw();
     aisleR5.draw();
 
-    //  ######   #######  ##       ##       ####  ######  ####  #######  ##    ## 
-    // ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ###   ## 
-    // ##       ##     ## ##       ##        ##  ##        ##  ##     ## ####  ## 
-    // ##       ##     ## ##       ##        ##   ######   ##  ##     ## ## ## ## 
-    // ##       ##     ## ##       ##        ##        ##  ##  ##     ## ##  #### 
-    // ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ##   ### 
-    //  ######   #######  ######## ######## ####  ######  ####  #######  ##    ## 
+    //  ######   #######  ##       ##       ####  ######  ####  #######  ##    ##
+    // ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ###   ##
+    // ##       ##     ## ##       ##        ##  ##        ##  ##     ## ####  ##
+    // ##       ##     ## ##       ##        ##   ######   ##  ##     ## ## ## ##
+    // ##       ##     ## ##       ##        ##        ##  ##  ##     ## ##  ####
+    // ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ##   ###
+    //  ######   #######  ######## ######## ####  ######  ####  #######  ##    ##
 
-
-
-    //GIFTS COLLECT + DRAW OBJECTS
-    for (let i = 0; i < giftArr.length; i++) {
-        if (elfOne.collision(giftArr[i])) {
-            elfOne.charge = giftArr[i]
-            // elfOne.changeSrc(1); // A CHANGER EN FONCTION DE this.charge
-            // console.log(elfOne.img.src);
-            console.log(elfOne.charge);
-            giftArr.splice(i, 1);
-            console.log(giftArr);
-        }
-        if (giftArr[i]) {
-            giftArr[i].giftImg(giftArr[i].name);
-
-        }
-        elfOne.changeSrc(0);
-    }
 
     //CHECK IF ELF IS STUCK
 
     theObstacle = undefined;
-    aisles.forEach((obstacle) => { // ON NE PEUT PAS BREAKER SUR FOR EACH
+    aisles.forEach((obstacle) => {
+        // ON NE PEUT PAS BREAKER SUR FOR EACH
         if (elfOne.collision(obstacle)) {
             theObstacle = obstacle;
             console.log(theObstacle);
@@ -135,22 +118,40 @@ function draw() {
             elfOne.charge = undefined;
             santasHood.forEach((el, index) => {
                 // Ajouter des objets dans un tableau au lieu de string.
-                const gift = giftList.find((gift) => {
-                    return gift.name === el;
+                const gift = giftList.wishList.find((gift) => {
+                    return gift === el;
                 });
                 gift.x = belt.x - belt.w / 2 - gift.w / 2;
                 const i = (belt.h - santasHood.length * gift.h) / santasHood.length + 1;
                 gift.y = (index + 1) * i + index * gift.h;
-                console.log(index, gift.y);
                 gift.giftImg(gift.name);
+                gift.draw();
+                console.log(index, gift.y, gift);
             });
         } else {
-            console.log('not selected toy');
+            console.log("not selected toy");
         }
     }
 
-    elfOne.decay();
 
+    //GIFTS COLLECT + DRAW OBJECTS
+    for (let i = 0; i < giftArr.length; i++) {
+        if (elfOne.collision(giftArr[i])) {
+            elfOne.charge = giftArr[i];
+            // elfOne.changeSrc(1); // A CHANGER EN FONCTION DE this.charge
+            // console.log(elfOne.img.src);
+            console.log(elfOne.charge);
+            giftArr.splice(i, 1);
+            console.log(giftArr);
+        }
+        if (giftArr[i]) {
+            giftArr[i].giftImg(giftArr[i].name);
+            giftArr[i].draw();
+        }
+        elfOne.changeSrc(0);
+    }
+
+    elfOne.decay();
 
     //         H
     // <--------------------->
@@ -159,24 +160,21 @@ function draw() {
 
     // H = 5i+4h
     // i = (H-4h)/5
-    // H = 
+    // H =
     // 3i+2h (3e y)
 
     wishListCompleted();
 
     //IMPROVE DRAW FUNCTION IN ELF OBJECT
 
-
     elfOne.draw();
 
     // Enlever la valeur de l'objet picked-up dans giftArr
     // Changer l'image de l'elf en fonction de la valeur de this.charge
     // ATTENTION: si plus d'objet, l'elf n'est plus affiché
-    // elf-> lastStatus to order 
+    // elf-> lastStatus to order
 
     designGrid();
-
-
 } //END DRAW FUNCTION
 
 // ########  ########  ######  ####  ######   ##    ##     ######   ########  #### ########
@@ -262,13 +260,13 @@ function animLoop() {
     }
 }
 
-// ##      ## ####  ######  ##     ## ##       ####  ######  ########     ######   #######  ##     ## ########  ##       ######## ######## ######## ########  
-// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ###   ### ##     ## ##       ##          ##    ##       ##     ## 
-// ##  ##  ##  ##  ##       ##     ## ##        ##  ##          ##       ##       ##     ## #### #### ##     ## ##       ##          ##    ##       ##     ## 
-// ##  ##  ##  ##   ######  ######### ##        ##   ######     ##       ##       ##     ## ## ### ## ########  ##       ######      ##    ######   ##     ## 
-// ##  ##  ##  ##        ## ##     ## ##        ##        ##    ##       ##       ##     ## ##     ## ##        ##       ##          ##    ##       ##     ## 
-// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ##     ## ##        ##       ##          ##    ##       ##     ## 
-//  ###  ###  ####  ######  ##     ## ######## ####  ######     ##        ######   #######  ##     ## ##        ######## ########    ##    ######## ########  
+// ##      ## ####  ######  ##     ## ##       ####  ######  ########     ######   #######  ##     ## ########  ##       ######## ######## ######## ########
+// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ###   ### ##     ## ##       ##          ##    ##       ##     ##
+// ##  ##  ##  ##  ##       ##     ## ##        ##  ##          ##       ##       ##     ## #### #### ##     ## ##       ##          ##    ##       ##     ##
+// ##  ##  ##  ##   ######  ######### ##        ##   ######     ##       ##       ##     ## ## ### ## ########  ##       ######      ##    ######   ##     ##
+// ##  ##  ##  ##        ## ##     ## ##        ##        ##    ##       ##       ##     ## ##     ## ##        ##       ##          ##    ##       ##     ##
+// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ##     ## ##        ##       ##          ##    ##       ##     ##
+//  ###  ###  ####  ######  ##     ## ######## ####  ######     ##        ######   #######  ##     ## ##        ######## ########    ##    ######## ########
 
 function wishListCompleted() {
     if (santasHood.length === giftList.wishList.length) {
@@ -277,21 +275,18 @@ function wishListCompleted() {
         santasHood = [];
         giftList.newWishList();
     }
-
 }
 
-// ########     ###    ##    ## ########     ########   #######   ######  
-// ##     ##   ## ##   ###   ## ##     ##    ##     ## ##     ## ##    ## 
-// ##     ##  ##   ##  ####  ## ##     ##    ##     ## ##     ## ##       
-// ########  ##     ## ## ## ## ##     ##    ########  ##     ##  ######  
-// ##   ##   ######### ##  #### ##     ##    ##        ##     ##       ## 
-// ##    ##  ##     ## ##   ### ##     ##    ##        ##     ## ##    ## 
-// ##     ## ##     ## ##    ## ########     ##         #######   ######  
+// ########     ###    ##    ## ########     ########   #######   ######
+// ##     ##   ## ##   ###   ## ##     ##    ##     ## ##     ## ##    ##
+// ##     ##  ##   ##  ####  ## ##     ##    ##     ## ##     ## ##
+// ########  ##     ## ## ## ## ##     ##    ########  ##     ##  ######
+// ##   ##   ######### ##  #### ##     ##    ##        ##     ##       ##
+// ##    ##  ##     ## ##   ### ##     ##    ##        ##     ## ##    ##
+// ##     ## ##     ## ##    ## ########     ##         #######   ######
 
 // function randomGiftX(){}
 // Math.random
-
-
 
 //  ######  ########    ###    ########  ########     ######      ###    ##     ## ########
 // ##    ##    ##      ## ##   ##     ##    ##       ##    ##    ## ##   ###   ### ##
@@ -311,7 +306,7 @@ function startGame() {
     elfOne = new Elf(350, 200);
     //INVOKE NEW WISHLIST
     giftList = new Wishlist(); //invoke new wishlist object.
-    giftList.newWishList(); //create a new random wishList.
+
     //CENTER BELT INVOKE
     belt = new Belt(425, 175, 50, 300, "orange");
     //LEFT AISLES INVOKE
@@ -352,7 +347,8 @@ function startGame() {
     hiTech = new Gift("Hi-Tech Stuff", 0, 750, 500);
     //PUSH GIFTS IN ARRAY TO ITERATE ON EACH
     giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
-
+    //create a new random wishList containing objects
+    giftList.newWishList();
     //GAME START TIME
     startedAt = new Date().getTime();
 

@@ -6,7 +6,7 @@ class Gift {
     constructor(name, weight, x, y) {
         this.name = name;
         this.weight = weight; // MAYBE A NEXT FEATURE
-        this.img = document.createElement('img');
+        this.img = new Image();
         this.srcs = {
             'Bike': "./assets/Gifts/bike-1.jpg",
             'Car': "./assets/Gifts/car-toy-1.jpg",
@@ -25,7 +25,7 @@ class Gift {
         this.w = 40;
         this.h = this.w / imgRatio;
         this.img.src = this.srcs[name];
-        this.draw()
+        // this.draw()
     }
 
     draw() {
