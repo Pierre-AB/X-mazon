@@ -32,10 +32,28 @@ class Gift {
         if (!this.img) return;
         ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
     }
-    pickUp(elf) {
-        return (this.y + this.h > elf.y &&
-            this.y < elf.y + elf.h &&
-            this.x + this.w > elf.x &&
-            this.x < elf.x + elf.w);
+
+    randCoordinate(maxX, minX, maxY, minY) {
+        this.randomGiftX(maxX, minX);
+        this.randomGiftY(maxY, minY);
     }
+
+    randomGiftX(maxX, minX) {
+        let randX = Math.floor(Math.random() * (maxX - minX + 1) + minX);
+        let availableX = W;
+        aisles.forEach(el => {
+            availableX -= el.x + el.w;
+        });
+        this.x = randX * availableX;
+    }
+
+    randomGiftY(maxY, minY) {
+        let randY = Math.floor(Math.random() * (maxY - minY + 1) + minY);
+        let availableY = H; // H = 600
+        aisles.forEach(el => { // Pour chaque obstacle
+            availableY -= el.y + el.h; // j'enlève la hauteur de tous les obstacles
+        });
+        this.y = randY * availableY;
+    }
+
 }

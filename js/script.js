@@ -111,28 +111,6 @@ function draw() {
 
     // console.log(theObstacle);
 
-    // DROPPING GIFT IN santasHood
-    if (theObstacle == belt) {
-        if (giftList.wishList.indexOf(elfOne.charge) >= 0) {
-            santasHood.push(elfOne.charge);
-            elfOne.charge = undefined;
-            santasHood.forEach((el, index) => {
-                // Ajouter des objets dans un tableau au lieu de string.
-                const gift = giftList.wishList.find((gift) => {
-                    return gift === el;
-                });
-                gift.x = belt.x - belt.w / 2 - gift.w / 2;
-                const i = (belt.h - santasHood.length * gift.h) / santasHood.length + 1;
-                gift.y = (index + 1) * i + index * gift.h;
-                gift.giftImg(gift.name);
-                gift.draw();
-                console.log(index, gift.y, gift);
-            });
-        } else {
-            console.log("not selected toy");
-        }
-    }
-
 
     //GIFTS COLLECT + DRAW OBJECTS
     for (let i = 0; i < giftArr.length; i++) {
@@ -151,6 +129,34 @@ function draw() {
         elfOne.changeSrc(0);
     }
 
+
+
+
+    // DROPPING GIFT IN santasHood
+    if (theObstacle == belt) {
+        if (giftList.wishList.indexOf(elfOne.charge) >= 0) {
+            santasHood.push(elfOne.charge);
+            elfOne.charge = undefined;
+            santasHood.forEach((el, index) => {
+                // Ajouter des objets dans un tableau au lieu de string.
+                const gift = giftList.wishList.find((gift) => {
+                    return gift === el;
+                });
+                gift.x = belt.x - belt.w / 2 - gift.w / 2;
+                const i = (belt.h - santasHood.length * gift.h) / santasHood.length + 1;
+                gift.y = (index + 1) * i + index * gift.h;
+                gift.giftImg(gift.name);
+                gift.draw(); // -----????----- NE FONCTIONNE PAS
+                console.log(index, gift.x, gift.y, );
+            });
+        } else {
+            console.log("not selected toy");
+        }
+    }
+
+
+
+
     elfOne.decay();
 
     //         H
@@ -166,15 +172,21 @@ function draw() {
     wishListCompleted();
 
     //IMPROVE DRAW FUNCTION IN ELF OBJECT
+    if (elfOne.charge) {
+        elfOne.changeSrc(1);
+        elfOne.draw();
+    } else {
+        elfOne.changeSrc(0);
+        elfOne.draw();
+    }
 
-    elfOne.draw();
 
     // Enlever la valeur de l'objet picked-up dans giftArr
     // Changer l'image de l'elf en fonction de la valeur de this.charge
     // ATTENTION: si plus d'objet, l'elf n'est plus affiché
     // elf-> lastStatus to order
 
-    designGrid();
+    // designGrid();
 } //END DRAW FUNCTION
 
 // ########  ########  ######  ####  ######   ##    ##     ######   ########  #### ########
@@ -274,6 +286,10 @@ function wishListCompleted() {
         giftList.wishList = [];
         santasHood = [];
         giftList.newWishList();
+        // giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
+        // giftArr.forEach(el => {
+        //     el.randCoordinate(W - el.w, 0, H - el.h, 0);
+        // })
     }
 }
 
@@ -285,8 +301,6 @@ function wishListCompleted() {
 // ##    ##  ##     ## ##   ### ##     ##    ##        ##     ## ##    ##
 // ##     ## ##     ## ##    ## ########     ##         #######   ######
 
-// function randomGiftX(){}
-// Math.random
 
 //  ######  ########    ###    ########  ########     ######      ###    ##     ## ########
 // ##    ##    ##      ## ##   ##     ##    ##       ##    ##    ## ##   ###   ### ##
