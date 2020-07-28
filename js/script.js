@@ -14,6 +14,7 @@ var belt;
 var aisles = [];
 var theObstacle;
 var happyChild = 0;
+var children = [];
 // Characters variables
 var elfOne;
 // Gifts variables
@@ -189,6 +190,54 @@ function draw() {
     // designGrid();
 } //END DRAW FUNCTION
 
+
+
+//  ######  ##     ## #### ##       ########  
+// ##    ## ##     ##  ##  ##       ##     ## 
+// ##       ##     ##  ##  ##       ##     ## 
+// ##       #########  ##  ##       ##     ## 
+// ##       ##     ##  ##  ##       ##     ## 
+// ##    ## ##     ##  ##  ##       ##     ## 
+//  ######  ##     ## #### ######## ########  
+
+
+
+
+// ##      ## ####  ######  ##     ## ##       ####  ######  ########     ######   #######  ##     ## ########  ##       ######## ######## ######## ########
+// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ###   ### ##     ## ##       ##          ##    ##       ##     ##
+// ##  ##  ##  ##  ##       ##     ## ##        ##  ##          ##       ##       ##     ## #### #### ##     ## ##       ##          ##    ##       ##     ##
+// ##  ##  ##  ##   ######  ######### ##        ##   ######     ##       ##       ##     ## ## ### ## ########  ##       ######      ##    ######   ##     ##
+// ##  ##  ##  ##        ## ##     ## ##        ##        ##    ##       ##       ##     ## ##     ## ##        ##       ##          ##    ##       ##     ##
+// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ##     ## ##        ##       ##          ##    ##       ##     ##
+//  ###  ###  ####  ######  ##     ## ######## ####  ######     ##        ######   #######  ##     ## ##        ######## ########    ##    ######## ########
+
+function wishListCompleted() {
+    if (santasHood.length === giftList.wishList.length) {
+        happyChild++;
+        if (happyChild > 0) {
+            let x = 475;
+            let y = 25;
+            for (let i = 0; i <= happyChild; i++) {
+                children[i].x = x;
+                children[i].y = y;
+                x -= 70
+                children[i].changeSrc(i);
+                children[i].draw();
+            }
+        }
+        giftList.wishList = [];
+        santasHood = [];
+        giftList.newWishList();
+        // giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
+        // giftArr.forEach(el => {
+        //     el.randCoordinate(W - el.w, 0, H - el.h, 0);
+        // })
+    }
+}
+
+
+
+
 // ########  ########  ######  ####  ######   ##    ##     ######   ########  #### ########
 // ##     ## ##       ##    ##  ##  ##    ##  ###   ##    ##    ##  ##     ##  ##  ##     ##
 // ##     ## ##       ##        ##  ##        ####  ##    ##        ##     ##  ##  ##     ##
@@ -272,26 +321,7 @@ function animLoop() {
     }
 }
 
-// ##      ## ####  ######  ##     ## ##       ####  ######  ########     ######   #######  ##     ## ########  ##       ######## ######## ######## ########
-// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ###   ### ##     ## ##       ##          ##    ##       ##     ##
-// ##  ##  ##  ##  ##       ##     ## ##        ##  ##          ##       ##       ##     ## #### #### ##     ## ##       ##          ##    ##       ##     ##
-// ##  ##  ##  ##   ######  ######### ##        ##   ######     ##       ##       ##     ## ## ### ## ########  ##       ######      ##    ######   ##     ##
-// ##  ##  ##  ##        ## ##     ## ##        ##        ##    ##       ##       ##     ## ##     ## ##        ##       ##          ##    ##       ##     ##
-// ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ##     ## ##        ##       ##          ##    ##       ##     ##
-//  ###  ###  ####  ######  ##     ## ######## ####  ######     ##        ######   #######  ##     ## ##        ######## ########    ##    ######## ########
 
-function wishListCompleted() {
-    if (santasHood.length === giftList.wishList.length) {
-        happyChild++;
-        giftList.wishList = [];
-        santasHood = [];
-        giftList.newWishList();
-        // giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
-        // giftArr.forEach(el => {
-        //     el.randCoordinate(W - el.w, 0, H - el.h, 0);
-        // })
-    }
-}
 
 // ########     ###    ##    ## ########     ########   #######   ######
 // ##     ##   ## ##   ###   ## ##     ##    ##     ## ##     ## ##    ##
@@ -363,6 +393,12 @@ function startGame() {
     giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
     //create a new random wishList containing objects
     giftList.newWishList();
+    //Child scoring invoke
+    child1 = new child();
+    child2 = new child();
+    child3 = new child();
+    child4 = new child();
+    children.push(child1, child2, child3, child4);
     //GAME START TIME
     startedAt = new Date().getTime();
 

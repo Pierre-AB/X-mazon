@@ -6,8 +6,8 @@ class Elf {
         this.y = startY; // where to place Elf on Y at the beginnning og the game.
         this.img = new Image(); // <img>
         this.srcs = [
-            "./assets/character/happy-elf-male.png",
-            "./assets/character/happy_elf_male_carrying.png",
+            "./assets/character/happy-elf-male-xmazon3.png",
+            "./assets/character/happy_elf_male_carrying2.png",
         ];
         this.changeSrc(0); // new Elf()
         this.charge;
@@ -64,21 +64,32 @@ class Elf {
 
     moveUp() {
         this.lastmove = 'up';
+        if (this.y < 0) { //-20
+            this.y = this.y % H;
+        };
         this.y -= this.speed;
+        console.log(this.y);
     }
     moveDown() {
         this.lastmove = 'down';
+        if (this.y + this.h > H) {
+            this.y = this.y % H;
+        };
         this.y += this.speed;
     }
     moveRight() {
         this.lastmove = 'right';
+        if (this.x + this.w > W) {
+            this.x = this.x % W;
+        };
         this.x += this.speed;
     }
     moveLeft() {
         this.lastmove = 'left';
+        if (this.x < 0) {
+            this.x = this.x % W;
+        };
         this.x -= this.speed;
-        // console.log(elfOne.img.src);
-        // console.log(elfOne.charge);
     }
 
     collision(obstacle) {
