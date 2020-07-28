@@ -53,7 +53,7 @@ function draw() {
     ctx.clearRect(0, 0, W, H); // --???-- A BIT HARDCORE NO ??
     ctx.drawImage(woodFloor, 0, 0, W, H);
     giftList.draw(); // print wishlist randomly picked on the board
-    ctx.fillRect(0, 0, 100, 100);
+    // ctx.fillRect(0, 0, 100, 100);
     //  ######  ##     ## ########   #######  ##    ##  #######
     // ##    ## ##     ## ##     ## ##     ## ###   ## ##     ##
     // ##       ##     ## ##     ## ##     ## ####  ## ##     ##
@@ -76,7 +76,7 @@ function draw() {
         gameover = true;
     }
     //debugger;
-    ctx.fillRect(200, 200, 100, 100);
+    // ctx.fillRect(200, 200, 100, 100);
 
     belt.draw();
     // LEFT AISLE DRAW
@@ -142,7 +142,7 @@ function draw() {
 
     // DROPPING GIFT IN santasHood
     if (theObstacle == belt) {
-        ctx.fillRect(400, 100, 100, 100);
+        // ctx.fillRect(400, 100, 100, 100);
         if (giftList.wishList.indexOf(elfOne.charge) >= 0) {
             santasHood.push(elfOne.charge);
             elfOne.charge = undefined;
@@ -156,7 +156,7 @@ function draw() {
                 gift.y = (index + 1) * i + index * gift.h;
                 gift.giftImg(gift.name);
                 console.log("stop");
-                ctx.fillRect(0, 0, 100, 100);
+                // ctx.fillRect(0, 0, 100, 100);
                 gift.draw(); // -----????----- NE FONCTIONNE PAS
                 console.log(index, gift.x, gift.y, );
             });
@@ -166,7 +166,7 @@ function draw() {
     }
 
 
-    ctx.fillRect(200, 100, 100, 100);
+    // ctx.fillRect(200, 100, 100, 100);
 
     elfOne.decay();
 
