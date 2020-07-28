@@ -65,10 +65,9 @@ class Elf {
     moveUp() {
         this.lastmove = 'up';
         if (this.y < 0) { //-20
-            this.y = this.y % H;
+            this.y = H + this.y; // 600 -20 = 580
         };
         this.y -= this.speed;
-        console.log(this.y);
     }
     moveDown() {
         this.lastmove = 'down';
@@ -87,7 +86,7 @@ class Elf {
     moveLeft() {
         this.lastmove = 'left';
         if (this.x < 0) {
-            this.x = this.x % W;
+            this.x = W + this.x
         };
         this.x -= this.speed;
     }

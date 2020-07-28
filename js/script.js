@@ -53,7 +53,7 @@ function draw() {
     ctx.clearRect(0, 0, W, H); // --???-- A BIT HARDCORE NO ??
     ctx.drawImage(woodFloor, 0, 0, W, H);
     giftList.draw(); // print wishlist randomly picked on the board
-
+    ctx.fillRect(0, 0, 100, 100);
     //  ######  ##     ## ########   #######  ##    ##  #######
     // ##    ## ##     ## ##     ## ##     ## ###   ## ##     ##
     // ##       ##     ## ##     ## ##     ## ####  ## ##     ##
@@ -75,6 +75,8 @@ function draw() {
         // ctx.fillText(`gameover`, 760, 50);
         gameover = true;
     }
+    //debugger;
+    ctx.fillRect(200, 200, 100, 100);
 
     belt.draw();
     // LEFT AISLE DRAW
@@ -106,7 +108,7 @@ function draw() {
         // ON NE PEUT PAS BREAKER SUR FOR EACH
         if (elfOne.collision(obstacle)) {
             theObstacle = obstacle;
-            console.log(theObstacle);
+            // console.log(theObstacle);
         }
     });
 
@@ -115,13 +117,19 @@ function draw() {
 
     //GIFTS COLLECT + DRAW OBJECTS
     for (let i = 0; i < giftArr.length; i++) {
+        if (elfOne.collision(giftArr[i]) && elfOne.charge) {
+            console.log("PASSE PAR LA");
+            elfOne.charge.draw();
+            elfOne.charge = undefined;
+        }
+
         if (elfOne.collision(giftArr[i])) {
             elfOne.charge = giftArr[i];
             // elfOne.changeSrc(1); // A CHANGER EN FONCTION DE this.charge
             // console.log(elfOne.img.src);
             console.log(elfOne.charge);
             giftArr.splice(i, 1);
-            console.log(giftArr);
+            // console.log(giftArr);
         }
         if (giftArr[i]) {
             giftArr[i].giftImg(giftArr[i].name);
@@ -132,9 +140,9 @@ function draw() {
 
 
 
-
     // DROPPING GIFT IN santasHood
     if (theObstacle == belt) {
+        ctx.fillRect(400, 100, 100, 100);
         if (giftList.wishList.indexOf(elfOne.charge) >= 0) {
             santasHood.push(elfOne.charge);
             elfOne.charge = undefined;
@@ -147,6 +155,8 @@ function draw() {
                 const i = (belt.h - santasHood.length * gift.h) / santasHood.length + 1;
                 gift.y = (index + 1) * i + index * gift.h;
                 gift.giftImg(gift.name);
+                console.log("stop");
+                ctx.fillRect(0, 0, 100, 100);
                 gift.draw(); // -----????----- NE FONCTIONNE PAS
                 console.log(index, gift.x, gift.y, );
             });
@@ -156,7 +166,7 @@ function draw() {
     }
 
 
-
+    ctx.fillRect(200, 100, 100, 100);
 
     elfOne.decay();
 
