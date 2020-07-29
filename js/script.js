@@ -119,7 +119,7 @@ function draw() {
     //GIFTS COLLECT + DRAW OBJECTS
     for (let i = 0; i < giftArr.length; i++) {
         if (elfOne.collision(giftArr[i]) && elfOne.charge) {
-            console.log("PASSE PAR LA");
+            console.log("Elf Pick Up");
             elfOne.charge.draw();
             elfOne.charge = undefined;
         }

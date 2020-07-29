@@ -88,8 +88,10 @@ class Gift {
 
     randY() {
         // let randX = Math.floor(Math.random() * (maxX - minX + 1) + minX);
-        // let randX = Math.floor(Math.random() * (600 - 110 + 1) + 110);
-        let randY = Math.floor(Math.random() * ((H - this.h) - 110 + 1) - 110);
+        // let randX = Math.floor(Math.random() * (600 - 110 + + 1) + 110);
+        // let randY = 
+        let randY = Math.floor(Math.random() * ((((H - this.h) - 110) + 1) + 110));
+        //600 - 150 + 
         return randY
     }
     randX(array) {
@@ -106,15 +108,36 @@ class Gift {
         let randD = this.randPosD();
         let randE = this.randPosE();
         let randF = this.randPosF();
-        aisles.forEach(el => {
-            if (randY > el.y - this.h && randY < el.y + el.h) {
+        for (let i = 0; i < aisles.length; i++) {
+            if (randY > aisles[i].y - this.h && randY < aisles[i].y + aisles[i].h) {
                 this.x = this.randX(this.posArrObst);
+                console.log(aisles[i]);
+                console.log("obtacle");
                 this.y = randY;
+                break;
             } else {
                 this.x = this.randX(this.posArrFree);
+                console.log("free");
                 this.y = randY;
+                break;
             }
-        })
+        }
+
+        //ATTENTION AU BREAK!
+
+        // aisles.forEach(el => {
+        //     if (randY > el.y - this.h && randY < el.y + el.h) {
+        //         this.x = this.randX(this.posArrObst);
+        //         console.log(el);
+        //         console.log("obtacle");
+        //         this.y = randY;
+        //     } else {
+        //         this.x = this.randX(this.posArrFree);
+        //         console.log("free");
+        //         this.y = randY;
+        //     }
+        // })
+        this.draw();
     }
 
 }
