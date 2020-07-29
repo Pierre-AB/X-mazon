@@ -67,8 +67,11 @@ function draw() {
         const seconds = Math.floor((endAt - elapsed) / 1000) % 60; // 78 % 60 -> 18
         const minutes = Math.floor((endAt - elapsed) / 60000); // 1
         ctx.fillStyle = "white";
+        ctx.font = "16px sans-serif";
+        ctx.fillText(`Remaining time`, 40, 20);
+        ctx.fillText('before X-mas:', 45, 41);
         ctx.font = "30px sans-serif";
-        ctx.fillText(`${minutes} : ${seconds}`, 760, 50);
+        ctx.fillText(`${minutes} : ${seconds}`, 47, 76);
         ctx.fillStyle = "black";
         ctx.font = "16px sans-serif";
     } else {
@@ -153,7 +156,6 @@ function draw() {
 
     // DRAWING SANTASHOOD
     santasHood.forEach((el, index) => {
-        // Ajouter des objets dans un tableau au lieu de string.
         const gift = giftList.wishList.find((gift) => {
             return gift === el;
         });
@@ -161,10 +163,10 @@ function draw() {
         const i = (belt.h - santasHood.length * gift.h) / santasHood.length + 1;
         gift.y = (index + 1) * i + index * gift.h;
         gift.giftImg(gift.name);
-        console.log("stop");
+        // console.log("stop");
         // ctx.fillRect(0, 0, 100, 100);
         gift.draw(); // -----????----- NE FONCTIONNE PAS
-        console.log(index, gift.x, gift.y, );
+        // console.log(index, gift.x, gift.y, );
     });
 
     // ctx.fillRect(200, 100, 100, 100);
@@ -182,7 +184,7 @@ function draw() {
     // 3i+2h (3e y)
 
     wishListCompleted();
-
+    childDraw();
     //IMPROVE DRAW FUNCTION IN ELF OBJECT
     if (elfOne.charge) {
         elfOne.changeSrc(1);
@@ -198,7 +200,7 @@ function draw() {
     // ATTENTION: si plus d'objet, l'elf n'est plus affiché
     // elf-> lastStatus to order
 
-    // designGrid();
+    designGrid();
 } //END DRAW FUNCTION
 
 
@@ -211,7 +213,19 @@ function draw() {
 // ##    ## ##     ##  ##  ##       ##     ## 
 //  ######  ##     ## #### ######## ########  
 
-
+function childDraw() {
+    if (happyChild > 0) {
+        let x = 375;
+        let y = 32;
+        for (let i = 0; i < happyChild; i++) {
+            children[i].x = x;
+            children[i].y = y;
+            x += 80
+            children[i].changeSrc(i % 4);
+            children[i].draw();
+        }
+    }
+}
 
 
 // ##      ## ####  ######  ##     ## ##       ####  ######  ########     ######   #######  ##     ## ########  ##       ######## ######## ######## ########
@@ -225,26 +239,19 @@ function draw() {
 function wishListCompleted() {
     if (santasHood.length === giftList.wishList.length) {
         happyChild++;
-        if (happyChild > 0) {
-            let x = 475;
-            let y = 25;
-            for (let i = 0; i <= happyChild; i++) {
-                children[i].x = x;
-                children[i].y = y;
-                x -= 70
-                children[i].changeSrc(i);
-                children[i].draw();
-            }
-        }
         giftList.wishList = [];
         santasHood = [];
-        giftList.newWishList();
+        giftArr = [];
         // giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
-        // giftArr.forEach(el => {
-        //     el.randCoordinate(W - el.w, 0, H - el.h, 0);
-        // })
+        // giftList.newWishList();
+        startGame();
     }
+    // giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
+    // giftArr.forEach(el => {
+    //     el.randCoordinate(W - el.w, 0, H - el.h, 0);
+    // })
 }
+
 
 
 

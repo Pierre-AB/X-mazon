@@ -3,7 +3,7 @@ console.log("link children ok");
 class child {
     constructor() {
         this.x = 475;
-        this.y = 25;
+        this.y = 32;
         this.w = 50;
         this.h;
         this.img = new Image();
@@ -16,7 +16,7 @@ class child {
     }
     changeSrc(i) {
         const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
-        this.w = 40;
+        this.w = 80;
         this.h = this.w / imgRatio;
         this.img.src = this.srcs[i];
         // this.draw()
