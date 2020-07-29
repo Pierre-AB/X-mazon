@@ -69,7 +69,7 @@ function draw() {
         ctx.fillStyle = "white";
         ctx.font = "16px sans-serif";
         ctx.fillText(`Remaining time`, 40, 20);
-        ctx.fillText('before X-mas:', 45, 41);
+        ctx.fillText("before X-mas:", 45, 41);
         ctx.font = "30px sans-serif";
         ctx.fillText(`${minutes} : ${seconds}`, 47, 76);
         ctx.fillStyle = "black";
@@ -103,7 +103,6 @@ function draw() {
     // ##    ## ##     ## ##       ##        ##  ##    ##  ##  ##     ## ##   ###
     //  ######   #######  ######## ######## ####  ######  ####  #######  ##    ##
 
-
     //CHECK IF ELF IS STUCK
 
     theObstacle = undefined;
@@ -116,7 +115,6 @@ function draw() {
     });
 
     // console.log(theObstacle);
-
 
     //GIFTS COLLECT + DRAW OBJECTS
     for (let i = 0; i < giftArr.length; i++) {
@@ -140,8 +138,6 @@ function draw() {
         }
         elfOne.changeSrc(0);
     }
-
-
 
     // DROPPING GIFT IN santasHood
     if (theObstacle == belt) {
@@ -194,7 +190,6 @@ function draw() {
         elfOne.draw();
     }
 
-
     // Enlever la valeur de l'objet picked-up dans giftArr
     // Changer l'image de l'elf en fonction de la valeur de this.charge
     // ATTENTION: si plus d'objet, l'elf n'est plus affiché
@@ -203,30 +198,29 @@ function draw() {
     designGrid();
 } //END DRAW FUNCTION
 
-
-
-//  ######  ##     ## #### ##       ########  
-// ##    ## ##     ##  ##  ##       ##     ## 
-// ##       ##     ##  ##  ##       ##     ## 
-// ##       #########  ##  ##       ##     ## 
-// ##       ##     ##  ##  ##       ##     ## 
-// ##    ## ##     ##  ##  ##       ##     ## 
-//  ######  ##     ## #### ######## ########  
+//  ######  ##     ## #### ##       ########
+// ##    ## ##     ##  ##  ##       ##     ##
+// ##       ##     ##  ##  ##       ##     ##
+// ##       #########  ##  ##       ##     ##
+// ##       ##     ##  ##  ##       ##     ##
+// ##    ## ##     ##  ##  ##       ##     ##
+//  ######  ##     ## #### ######## ########
 
 function childDraw() {
     if (happyChild > 0) {
         let x = 375;
-        let y = 32;
+        let y = 15;
+        var childImg = 0;
         for (let i = 0; i < happyChild; i++) {
-            children[i].x = x;
-            children[i].y = y;
-            x += 80
-            children[i].changeSrc(i % 4);
-            children[i].draw();
+            childImg = i % 4;
+            children[childImg].x = x;
+            children[childImg].y = y;
+            x += 80;
+            children[childImg].changeSrc(childImg);
+            children[childImg].draw();
         }
     }
 }
-
 
 // ##      ## ####  ######  ##     ## ##       ####  ######  ########     ######   #######  ##     ## ########  ##       ######## ######## ######## ########
 // ##  ##  ##  ##  ##    ## ##     ## ##        ##  ##    ##    ##       ##    ## ##     ## ###   ### ##     ## ##       ##          ##    ##       ##     ##
@@ -242,19 +236,9 @@ function wishListCompleted() {
         giftList.wishList = [];
         santasHood = [];
         giftArr = [];
-        // giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
-        // giftList.newWishList();
-        startGame();
+        newGame();
     }
-    // giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
-    // giftArr.forEach(el => {
-    //     el.randCoordinate(W - el.w, 0, H - el.h, 0);
-    // })
 }
-
-
-
-
 
 // ########  ########  ######  ####  ######   ##    ##     ######   ########  #### ########
 // ##     ## ##       ##    ##  ##  ##    ##  ###   ##    ##    ##  ##     ##  ##  ##     ##
@@ -339,8 +323,6 @@ function animLoop() {
     }
 }
 
-
-
 // ########     ###    ##    ## ########     ########   #######   ######
 // ##     ##   ## ##   ###   ## ##     ##    ##     ## ##     ## ##    ##
 // ##     ##  ##   ##  ####  ## ##     ##    ##     ## ##     ## ##
@@ -348,7 +330,83 @@ function animLoop() {
 // ##   ##   ######### ##  #### ##     ##    ##        ##     ##       ##
 // ##    ##  ##     ## ##   ### ##     ##    ##        ##     ## ##    ##
 // ##     ## ##     ## ##    ## ########     ##         #######   ######
+var A;
+var B;
+var C;
+var D;
+var E;
+var F;
+// let randX = Math.floor(Math.random() * (maxX - minX + 1) + minX);
+function randPosA(gift) {
+    let randA = Math.floor(Math.random() * (aisleL1.x - gift.w - 0 + 1) + 0);
+    return randA
+}
 
+function randPosB(gift) {
+    // let randB = Math.floor(Math.random() * (425 - 325 + 1) + 325);
+    let randB = Math.floor(Math.random() * ((belt.x - gift.w) - (aisleL1.x + aisleL1.w) + 1) + (aisleL1.x + aisleL1.w));
+    return randB
+}
+
+function randPosC(gift) {
+    // let randC = Math.floor(Math.random() * (575 - 475 + 1) + 475);
+    let randC = Math.floor(Math.random() * ((aisleR1.x - gift.w) - (belt.x + belt.w) + 1) + (belt.x + belt.w));
+    return randC
+}
+
+function randPosD(gift) {
+    // let randD = Math.floor(Math.random() * (900 - 825 + 1) + 825);
+    let randD = Math.floor(Math.random() * ((W - gift.w) - (aisleR1.x + aisleR1.w) + 1) + (aisleR1.x + aisleR1.w));
+    return randD
+}
+
+function randPosE(gift) {
+    // let randE = Math.floor(Math.random() * (425 - 0 + 1) + 0);
+    let randE = Math.floor(Math.random() * (belt.x - gift.w + 1));
+    return randE
+}
+
+function randPosF(gift) {
+    // let randF = Math.floor(Math.random() * (900 - 475 + 1) + 475);
+    let randF = Math.floor(Math.random() * ((W - gift.w) - (belt.x + belt.w) + 1) + (belt.x + belt.w));
+    return randF
+}
+
+function randY(gift) {
+    // let randX = Math.floor(Math.random() * (maxX - minX + 1) + minX);
+    // let randX = Math.floor(Math.random() * (600 - 110 + 1) + 110);
+    let randY = Math.floor(Math.random() * ((H - gift.h) - 110 + 1) - 110);
+    return randY
+}
+
+function randPosGift() {
+    let randY = randY();
+
+}
+
+
+// ##    ## ######## ##      ##  ######      ###    ##     ## ########
+// ###   ## ##       ##  ##  ## ##    ##    ## ##   ###   ### ##
+// ####  ## ##       ##  ##  ## ##         ##   ##  #### #### ##
+// ## ## ## ######   ##  ##  ## ##   #### ##     ## ## ### ## ######
+// ##  #### ##       ##  ##  ## ##    ##  ######### ##     ## ##
+// ##   ### ##       ##  ##  ## ##    ##  ##     ## ##     ## ##
+// ##    ## ########  ###  ###   ######   ##     ## ##     ## ########
+
+function newGame() {
+    bike = new Gift("Bike", 0, 100, 200);
+    car = new Gift("Car", 0, 100, 300);
+    lego = new Gift("Construction Blocks", 0, 100, 400);
+    doll = new Gift("Doll", 0, 100, 500);
+    videoGame = new Gift("Video Game", 0, 750, 200);
+    candy = new Gift("Candy", 0, 750, 300);
+    books = new Gift("Books", 0, 750, 400);
+    hiTech = new Gift("Hi-Tech Stuff", 0, 750, 500);
+    //PUSH GIFTS IN ARRAY TO ITERATE ON EACH
+    giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
+    //create a new random wishList containing objects
+    giftList.newWishList();
+}
 
 //  ######  ########    ###    ########  ########     ######      ###    ##     ## ########
 // ##    ##    ##      ## ##   ##     ##    ##       ##    ##    ## ##   ###   ### ##

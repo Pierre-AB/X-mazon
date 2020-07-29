@@ -11,7 +11,7 @@ class Elf {
         ];
         this.changeSrc(0); // new Elf()
         this.charge;
-        this.speed = 10;
+        this.speed = 15;
         // this.nextUp = this.y - this.speed;
         // this.nextDown = this.y + this.speed;
         // this.nextRight = this.x - this.speed;

@@ -19,6 +19,8 @@ class Gift {
         }
         this.x = x;
         this.y = y;
+        this.posArrObst = [];
+        this.posArrFree = [];
     }
     giftImg(name) {
         const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
@@ -37,23 +39,82 @@ class Gift {
         this.randomGiftX(maxX, minX);
         this.randomGiftY(maxY, minY);
     }
-
-    randomGiftX(maxX, minX) {
-        let randX = Math.floor(Math.random() * (maxX - minX + 1) + minX);
-        let availableX = W;
-        aisles.forEach(el => {
-            availableX -= el.x + el.w;
-        });
-        this.x = randX * availableX;
+    randPosA() {
+        let randA = Math.floor(Math.random() * (aisleL1.x - this.w - 0 + 1) + 0);
+        this.posArrObst.push(randA);
+        return randA
     }
 
-    randomGiftY(maxY, minY) {
-        let randY = Math.floor(Math.random() * (maxY - minY + 1) + minY);
-        let availableY = H; // H = 600
-        aisles.forEach(el => { // Pour chaque obstacle
-            availableY -= el.y + el.h; // j'enlève la hauteur de tous les obstacles
-        });
-        this.y = randY * availableY;
+
+    randPosB() {
+        // let randB = Math.floor(Math.random() * (425 - 325 + 1) + 325);
+        let randB = Math.floor(Math.random() * ((belt.x - this.w) - (aisleL1.x + aisleL1.w) + 1) + (aisleL1.x + aisleL1.w));
+        this.posArrObst.push(randB);
+        return randB
+    }
+
+
+    randPosC() {
+        // let randC = Math.floor(Math.random() * (575 - 475 + 1) + 475);
+        let randC = Math.floor(Math.random() * ((aisleR1.x - this.w) - (belt.x + belt.w) + 1) + (belt.x + belt.w));
+        this.posArrObst.push(randC);
+        return randC
+    }
+
+
+    randPosD() {
+        // let randD = Math.floor(Math.random() * (900 - 825 + 1) + 825);
+        let randD = Math.floor(Math.random() * ((W - this.w) - (aisleR1.x + aisleR1.w) + 1) + (aisleR1.x + aisleR1.w));
+        this.posArrObst.push(randD);
+        return randD
+    }
+
+
+    randPosE() {
+        // let randE = Math.floor(Math.random() * (425 - 0 + 1) + 0);
+        let randE = Math.floor(Math.random() * (belt.x - this.w + 1));
+        this.posArrFree.push(randE);
+        return randE
+    }
+
+
+    randPosF() {
+        // let randF = Math.floor(Math.random() * (900 - 475 + 1) + 475);
+        let randF = Math.floor(Math.random() * ((W - this.w) - (belt.x + belt.w) + 1) + (belt.x + belt.w));
+        this.posArrFree.push(randF);
+        return randF
+    }
+
+
+    randY() {
+        // let randX = Math.floor(Math.random() * (maxX - minX + 1) + minX);
+        // let randX = Math.floor(Math.random() * (600 - 110 + 1) + 110);
+        let randY = Math.floor(Math.random() * ((H - this.h) - 110 + 1) - 110);
+        return randY
+    }
+    randX(array) {
+        let randX = Math.floor(Math.random() * array.length);
+        return array[randX];
+    }
+    randPosGift() {
+        this.posArrFree = [];
+        this.posArrObst = [];
+        let randY = this.randY();
+        let randA = this.randPosA();
+        let randB = this.randPosB();
+        let randC = this.randPosC();
+        let randD = this.randPosD();
+        let randE = this.randPosE();
+        let randF = this.randPosF();
+        aisles.forEach(el => {
+            if (randY > el.y - this.h && randY < el.y + el.h) {
+                this.x = this.randX(this.posArrObst);
+                this.y = randY;
+            } else {
+                this.x = this.randX(this.posArrFree);
+                this.y = randY;
+            }
+        })
     }
 
 }
