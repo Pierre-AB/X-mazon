@@ -146,25 +146,26 @@ function draw() {
         if (giftList.wishList.indexOf(elfOne.charge) >= 0) {
             santasHood.push(elfOne.charge);
             elfOne.charge = undefined;
-            santasHood.forEach((el, index) => {
-                // Ajouter des objets dans un tableau au lieu de string.
-                const gift = giftList.wishList.find((gift) => {
-                    return gift === el;
-                });
-                gift.x = belt.x - belt.w / 2 - gift.w / 2;
-                const i = (belt.h - santasHood.length * gift.h) / santasHood.length + 1;
-                gift.y = (index + 1) * i + index * gift.h;
-                gift.giftImg(gift.name);
-                console.log("stop");
-                // ctx.fillRect(0, 0, 100, 100);
-                gift.draw(); // -----????----- NE FONCTIONNE PAS
-                console.log(index, gift.x, gift.y, );
-            });
         } else {
             console.log("not selected toy");
         }
     }
 
+    // DRAWING SANTASHOOD
+    santasHood.forEach((el, index) => {
+        // Ajouter des objets dans un tableau au lieu de string.
+        const gift = giftList.wishList.find((gift) => {
+            return gift === el;
+        });
+        gift.x = belt.x - belt.w / 2 - gift.w / 2;
+        const i = (belt.h - santasHood.length * gift.h) / santasHood.length + 1;
+        gift.y = (index + 1) * i + index * gift.h;
+        gift.giftImg(gift.name);
+        console.log("stop");
+        // ctx.fillRect(0, 0, 100, 100);
+        gift.draw(); // -----????----- NE FONCTIONNE PAS
+        console.log(index, gift.x, gift.y, );
+    });
 
     // ctx.fillRect(200, 100, 100, 100);
 
