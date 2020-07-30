@@ -19,6 +19,8 @@ class Gift {
     this.y = y;
     this.posArrObst = [];
     this.posArrFree = [];
+    this.w = 0;
+    this.h = 0;
   }
   giftImg(name) {
     const imgRatio = this.img.naturalWidth / this.img.naturalHeight;

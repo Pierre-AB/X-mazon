@@ -28,7 +28,7 @@ var lego;
 var doll;
 //Time variable
 let startedAt;
-let endAt = 1200000; // 2min per game === 120000
+let endAt = 120000; // 2min per game === 120000
 
 // ########   #######     ###    ########  ########
 // ##     ## ##     ##   ## ##   ##     ## ##     ##
@@ -195,7 +195,7 @@ function draw() {
   // ATTENTION: si plus d'objet, l'elf n'est plus affiché
   // elf-> lastStatus to order
 
-  designGrid();
+  //   designGrid();
 } //END DRAW FUNCTION
 
 //  ######  ##     ## #### ##       ########
@@ -330,69 +330,6 @@ function animLoop() {
 // ##   ##   ######### ##  #### ##     ##    ##        ##     ##       ##
 // ##    ##  ##     ## ##   ### ##     ##    ##        ##     ## ##    ##
 // ##     ## ##     ## ##    ## ########     ##         #######   ######
-var A;
-var B;
-var C;
-var D;
-var E;
-var F;
-// let randX = Math.floor(Math.random() * (maxX - minX + 1) + minX);
-function randPosA(gift) {
-  let randA = Math.floor(Math.random() * (aisleL1.x - gift.w - 0 + 1) + 0);
-  return randA;
-}
-
-function randPosB(gift) {
-  // let randB = Math.floor(Math.random() * (425 - 325 + 1) + 325);
-  let randB = Math.floor(
-    Math.random() * (belt.x - gift.w - (aisleL1.x + aisleL1.w) + 1) +
-      (aisleL1.x + aisleL1.w)
-  );
-  return randB;
-}
-
-function randPosC(gift) {
-  // let randC = Math.floor(Math.random() * (575 - 475 + 1) + 475);
-  let randC = Math.floor(
-    Math.random() * (aisleR1.x - gift.w - (belt.x + belt.w) + 1) +
-      (belt.x + belt.w)
-  );
-  return randC;
-}
-
-function randPosD(gift) {
-  // let randD = Math.floor(Math.random() * (900 - 825 + 1) + 825);
-  let randD = Math.floor(
-    Math.random() * (W - gift.w - (aisleR1.x + aisleR1.w) + 1) +
-      (aisleR1.x + aisleR1.w)
-  );
-  return randD;
-}
-
-function randPosE(gift) {
-  // let randE = Math.floor(Math.random() * (425 - 0 + 1) + 0);
-  let randE = Math.floor(Math.random() * (belt.x - gift.w + 1));
-  return randE;
-}
-
-function randPosF(gift) {
-  // let randF = Math.floor(Math.random() * (900 - 475 + 1) + 475);
-  let randF = Math.floor(
-    Math.random() * (W - gift.w - (belt.x + belt.w) + 1) + (belt.x + belt.w)
-  );
-  return randF;
-}
-
-function randY(gift) {
-  // let randX = Math.floor(Math.random() * (maxX - minX + 1) + minX);
-  // let randX = Math.floor(Math.random() * (600 - 110 + 1) + 110);
-  let randY = Math.floor(Math.random() * (H - gift.h - 110 + 1) - 110);
-  return randY;
-}
-
-function randPosGift() {
-  let randY = randY();
-}
 
 // ##    ## ######## ##      ##  ######      ###    ##     ## ########
 // ###   ## ##       ##  ##  ## ##    ##    ## ##   ###   ### ##
@@ -413,6 +350,10 @@ function newGame() {
   hiTech = new Gift("Hi-Tech Stuff", 0, 750, 500);
   //PUSH GIFTS IN ARRAY TO ITERATE ON EACH
   giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
+  //randomize position on board.
+  giftArr.forEach((el) => {
+    el.randPosGift();
+  });
   //create a new random wishList containing objects
   giftList.newWishList();
 }
