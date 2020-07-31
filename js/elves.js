@@ -67,28 +67,44 @@ class Elf {
         if (this.y < 0) { //-20
             this.y = H + this.y; // 600 -20 = 580
         };
-        this.y -= this.speed;
+        if (this.charge) {
+            this.y -= this.speed + this.charge.weight;
+        } else {
+            this.y -= this.speed;
+        }
     }
     moveDown() {
         this.lastmove = 'down';
         if (this.y + this.h > H) {
             this.y = this.y % H;
-        };
-        this.y += this.speed;
+        }
+        if (this.charge) {
+            this.y += this.speed + this.charge.weight;
+        } else {
+            this.y += this.speed;
+        }
     }
     moveRight() {
         this.lastmove = 'right';
         if (this.x + this.w > W) {
             this.x = this.x % W;
-        };
-        this.x += this.speed;
+        }
+        if (this.charge) {
+            this.x += this.speed + this.charge.weight;
+        } else {
+            this.x += this.speed;
+        }
     }
     moveLeft() {
         this.lastmove = 'left';
         if (this.x < 0) {
             this.x = W + this.x
-        };
-        this.x -= this.speed;
+        }
+        if (this.charge) {
+            this.x -= this.speed + this.charge.weight;
+        } else {
+            this.x -= this.speed;
+        }
     }
 
     collision(obstacle) {

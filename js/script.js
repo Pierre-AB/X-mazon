@@ -15,6 +15,8 @@ var aisles = [];
 var theObstacle;
 var happyChild = 0;
 var children = [];
+var giftX = [100, 750];
+var giftY = [190, 290, 390, 490];
 // Characters variables
 var elfOne;
 // Gifts variables
@@ -120,7 +122,8 @@ function draw() {
   for (let i = 0; i < giftArr.length; i++) {
     if (elfOne.collision(giftArr[i]) && elfOne.charge) {
       console.log("Elf Pick Up");
-      elfOne.charge.draw();
+      elfOne.charge.randPosGift();
+      giftArr.push(elfOne.charge);
       elfOne.charge = undefined;
     }
 
@@ -215,8 +218,12 @@ function draw() {
 function childDraw() {
   if (happyChild > 0) {
     let x = 375;
-    let y = 15;
+    let y = 30;
     var childImg = 0;
+    ctx.fillStyle = "white";
+    ctx.font = "16px Sans-Serif";
+    ctx.fillText("Happy Children:", 360, 25);
+    ctx.fillStyle = "black";
     for (let i = 0; i < happyChild; i++) {
       childImg = i % 4;
       children[childImg].x = x;
@@ -329,13 +336,31 @@ function animLoop() {
   }
 }
 
-// ########     ###    ##    ## ########     ########   #######   ######
-// ##     ##   ## ##   ###   ## ##     ##    ##     ## ##     ## ##    ##
-// ##     ##  ##   ##  ####  ## ##     ##    ##     ## ##     ## ##
-// ########  ##     ## ## ## ## ##     ##    ########  ##     ##  ######
-// ##   ##   ######### ##  #### ##     ##    ##        ##     ##       ##
-// ##    ##  ##     ## ##   ### ##     ##    ##        ##     ## ##    ##
-// ##     ## ##     ## ##    ## ########     ##         #######   ######
+//  ######   #### ######## ########  ######     #### ##    ## ##     ##  #######  ##    ## ######## 
+// ##    ##   ##  ##          ##    ##    ##     ##  ###   ## ##     ## ##     ## ##   ##  ##       
+// ##         ##  ##          ##    ##           ##  ####  ## ##     ## ##     ## ##  ##   ##       
+// ##   ####  ##  ######      ##     ######      ##  ## ## ## ##     ## ##     ## #####    ######   
+// ##    ##   ##  ##          ##          ##     ##  ##  ####  ##   ##  ##     ## ##  ##   ##       
+// ##    ##   ##  ##          ##    ##    ##     ##  ##   ###   ## ##   ##     ## ##   ##  ##       
+//  ######   #### ##          ##     ######     #### ##    ##    ###     #######  ##    ## ######## 
+
+function giftInvoke() {
+  bike = new Gift("Bike", 10, 100, 190);
+  car = new Gift("Car", 20, 100, 290);
+  lego = new Gift("Construction Blocks", -5, 100, 390);
+  doll = new Gift("Doll", 0, 100, 490);
+  videoGame = new Gift("Video Game", 5, 750, 190);
+  candy = new Gift("Candy", 35, 750, 290);
+  books = new Gift("Books", -5, 750, 390);
+  hiTech = new Gift("Hi-Tech Stuff", 5, 750, 490);
+  giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
+  // giftArr.forEach(el => {
+  //   giftX.push(el.x);
+  //   giftY.push(el.y);
+  // });
+}
+
+
 
 // ##    ## ######## ##      ##  ######      ###    ##     ## ########
 // ###   ## ##       ##  ##  ## ##    ##    ## ##   ###   ### ##
@@ -346,20 +371,42 @@ function animLoop() {
 // ##    ## ########  ###  ###   ######   ##     ## ##     ## ########
 
 function newGame() {
-  bike = new Gift("Bike", 0, 100, 200);
-  car = new Gift("Car", 0, 100, 300);
-  lego = new Gift("Construction Blocks", 0, 100, 400);
-  doll = new Gift("Doll", 0, 100, 500);
-  videoGame = new Gift("Video Game", 0, 750, 200);
-  candy = new Gift("Candy", 0, 750, 300);
-  books = new Gift("Books", 0, 750, 400);
-  hiTech = new Gift("Hi-Tech Stuff", 0, 750, 500);
-  //PUSH GIFTS IN ARRAY TO ITERATE ON EACH
-  giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
+  giftInvoke();
   //randomize position on board.
-  giftArr.forEach((el) => {
-    el.randPosGift();
-  });
+  for (let i = giftArr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = giftArr[i];
+    giftArr[i] = giftArr[j];
+    giftArr[j] = temp;
+  }
+
+  for (let i = 0; i < 4; i++) {
+    giftArr[i].x = 100;
+  }
+
+  for (let i = 0; i < 4; i++) {
+    var j = Math.floor(Math.random() * (i + 1));
+    giftArr[i].y = giftY[i];
+  }
+
+  for (let i = 4; i < 8; i++) {
+    giftArr[i].x = 750;
+  }
+  for (let i = 4; i < 8; i++) {
+    var j = Math.floor(Math.random() * (i + 1));
+    giftArr[i].y = giftY[i - 4];
+
+  }
+
+
+  // giftArr.forEach((el, index) => {
+  //   let randX = Math.floor(Math.random() * (giftX.length - 1));
+  //   let randY = Math.floor(Math.random() * (giftY.length - 1));
+  //   el.x = giftX[randX];
+  //   giftX.splice(randX, 1);
+  //   el.y = giftY[randY];
+  //   giftY.splice(randY, 1);
+  // })
   //create a new random wishList containing objects
   giftList.newWishList();
 }
@@ -413,16 +460,7 @@ function startGame() {
   );
 
   //GIFT INVOKE
-  bike = new Gift("Bike", 0, 100, 190);
-  car = new Gift("Car", 0, 100, 290);
-  lego = new Gift("Construction Blocks", 0, 100, 390);
-  doll = new Gift("Doll", 0, 100, 490);
-  videoGame = new Gift("Video Game", 0, 750, 190);
-  candy = new Gift("Candy", 0, 750, 290);
-  books = new Gift("Books", 0, 750, 390);
-  hiTech = new Gift("Hi-Tech Stuff", 0, 750, 490);
-  //PUSH GIFTS IN ARRAY TO ITERATE ON EACH
-  giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
+  giftInvoke();
   //create a new random wishList containing objects
   giftList.newWishList();
   //Child scoring invoke
