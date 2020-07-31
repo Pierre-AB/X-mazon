@@ -31,6 +31,9 @@ var doll;
 //Time variable
 let startedAt;
 let endAt = 120000; // 2min per game === 120000
+//Audio variable
+var audio = new Audio('../assets/audio/Hip-Hop_Christmas.mp3');
+audio.play();
 
 // ########   #######     ###    ########  ########
 // ##     ## ##     ##   ## ##   ##     ## ##     ##
