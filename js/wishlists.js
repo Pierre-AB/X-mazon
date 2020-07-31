@@ -22,6 +22,8 @@ class Wishlist {
         //IMPROVE WISHLIST GAME DISPLAY
         // const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
         // ctx.drawImage(this.img, 550, 5, this.w, this.w / imgRatio);
+        ctx.fillStyle = "black";
+        ctx.strokeRect(190, 5, 155, 100);
         ctx.fillStyle = "orange";
         ctx.fillRect(190, 5, 155, 100); //SIZE OF WISHLIST PAD
         ctx.fillStyle = "white";

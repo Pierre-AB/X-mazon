@@ -5,6 +5,9 @@ const ctx = document.querySelector("canvas").getContext("2d");
 const W = ctx.canvas.width;
 const H = ctx.canvas.height;
 var G = 50; // GRID FINE TUNING - ONE SIDE OF A GRID SQUARE
+//Gameover image
+var gOImage = new Image();
+gOImage.src = "./assets/Fun to add/gameover.png";
 // Gameplay variables
 var gameover = false;
 var giftList; // object containing the wishlist -> giftList.wishlist is the current game list
@@ -32,8 +35,6 @@ var doll;
 let startedAt;
 let endAt = 120000; // 2min per game === 120000
 //Audio variable
-var audio = new Audio('../assets/audio/Hip-Hop_Christmas.mp3');
-audio.play();
 
 // ########   #######     ###    ########  ########
 // ##     ## ##     ##   ## ##   ##     ## ##     ##
@@ -58,31 +59,7 @@ function draw() {
   ctx.clearRect(0, 0, W, H); // --???-- A BIT HARDCORE NO ??
   ctx.drawImage(woodFloor, 0, 0, W, H);
   giftList.draw(); // print wishlist randomly picked on the board
-  // ctx.fillRect(0, 0, 100, 100);
-  //  ######  ##     ## ########   #######  ##    ##  #######
-  // ##    ## ##     ## ##     ## ##     ## ###   ## ##     ##
-  // ##       ##     ## ##     ## ##     ## ####  ## ##     ##
-  // ##       ######### ########  ##     ## ## ## ## ##     ##
-  // ##       ##     ## ##   ##   ##     ## ##  #### ##     ##
-  // ##    ## ##     ## ##    ##  ##     ## ##   ### ##     ##
-  //  ######  ##     ## ##     ##  #######  ##    ##  #######
 
-  const elapsed = new Date().getTime() - startedAt; // 78987 - 50000 = 28987
-  if (elapsed < endAt) {
-    const seconds = Math.floor((endAt - elapsed) / 1000) % 60; // 78 % 60 -> 18
-    const minutes = Math.floor((endAt - elapsed) / 60000); // 1
-    ctx.fillStyle = "white";
-    ctx.font = "16px sans-serif";
-    ctx.fillText(`Remaining time`, 40, 20);
-    ctx.fillText("before X-mas:", 45, 41);
-    ctx.font = "30px sans-serif";
-    ctx.fillText(`${minutes} : ${seconds}`, 47, 76);
-    ctx.fillStyle = "black";
-    ctx.font = "16px sans-serif";
-  } else {
-    // ctx.fillText(`gameover`, 760, 50);
-    gameover = true;
-  }
   //debugger;
   // ctx.fillRect(200, 200, 100, 100);
 
@@ -166,10 +143,11 @@ function draw() {
       return gift === el;
     });
     gift.h = gift.h / 2;
-    gift.x = belt.x + (belt.w / 2) - (gift.w / 2);
-    const i = ((belt.y + belt.h) - (santasHood.length * gift.h)) / (santasHood.length + 1);
-    //300 - (51,15 * 4) / 
-    gift.y = (index + 1) * i + ((index + 2) * gift.h); //+ gift.h;
+    gift.x = belt.x + belt.w / 2 - gift.w / 2;
+    const i =
+      (belt.y + belt.h - santasHood.length * gift.h) / (santasHood.length + 1);
+    //300 - (51,15 * 4) /
+    gift.y = (index + 1) * i + (index + 2) * gift.h; //+ gift.h;
     gift.giftImg(gift.name);
     // console.log("stop");
     // ctx.fillRect(0, 0, 100, 100);
@@ -183,7 +161,7 @@ function draw() {
 
   //         H
   // <--------------------->
-  //   [ ]  [ ]  [ ]  [ ]  
+  //   [ ]  [ ]  [ ]  [ ]
   // --
 
   // H = 5i+4h
@@ -202,10 +180,42 @@ function draw() {
     elfOne.draw();
   }
 
-  // Enlever la valeur de l'objet picked-up dans giftArr
-  // Changer l'image de l'elf en fonction de la valeur de this.charge
-  // ATTENTION: si plus d'objet, l'elf n'est plus affiché
-  // elf-> lastStatus to order
+  //  ######  ##     ## ########   #######  ##    ##  #######
+  // ##    ## ##     ## ##     ## ##     ## ###   ## ##     ##
+  // ##       ##     ## ##     ## ##     ## ####  ## ##     ##
+  // ##       ######### ########  ##     ## ## ## ## ##     ##
+  // ##       ##     ## ##   ##   ##     ## ##  #### ##     ##
+  // ##    ## ##     ## ##    ##  ##     ## ##   ### ##     ##
+  //  ######  ##     ## ##     ##  #######  ##    ##  #######
+
+  const elapsed = new Date().getTime() - startedAt; // 78987 - 50000 = 28987
+  if (elapsed < endAt) {
+    const seconds = Math.floor((endAt - elapsed) / 1000) % 60; // 78 % 60 -> 18
+    const minutes = Math.floor((endAt - elapsed) / 60000); // 1
+    ctx.fillStyle = "white";
+    ctx.font = "16px sans-serif";
+    ctx.fillText(`Remaining time`, 40, 20);
+    ctx.fillText("before X-mas:", 45, 41);
+    ctx.font = "30px sans-serif";
+    ctx.fillText(`${minutes} : ${seconds}`, 47, 76);
+    ctx.fillStyle = "black";
+    ctx.font = "16px sans-serif";
+  } else {
+    gameover = true;
+    ctx.shadowOffsetX = 10;
+    ctx.shadowOffsetY = 10;
+    ctx.shadowColor = "black";
+    ctx.shadowBlur = 30;
+    ctx.drawImage(gOImage, 135, 100);
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.shadowColor = "black";
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = "black";
+    ctx.fillText(`GAME OVER`, 400, 250);
+    ctx.fillText(`You saved ${happyChild} X-mas!`, 380, 280);
+    ctx.fillText(`Just a few millions more to go...`, 350, 310);
+  }
 
   // designGrid();
 } //END DRAW FUNCTION
@@ -339,13 +349,13 @@ function animLoop() {
   }
 }
 
-//  ######   #### ######## ########  ######     #### ##    ## ##     ##  #######  ##    ## ######## 
-// ##    ##   ##  ##          ##    ##    ##     ##  ###   ## ##     ## ##     ## ##   ##  ##       
-// ##         ##  ##          ##    ##           ##  ####  ## ##     ## ##     ## ##  ##   ##       
-// ##   ####  ##  ######      ##     ######      ##  ## ## ## ##     ## ##     ## #####    ######   
-// ##    ##   ##  ##          ##          ##     ##  ##  ####  ##   ##  ##     ## ##  ##   ##       
-// ##    ##   ##  ##          ##    ##    ##     ##  ##   ###   ## ##   ##     ## ##   ##  ##       
-//  ######   #### ##          ##     ######     #### ##    ##    ###     #######  ##    ## ######## 
+//  ######   #### ######## ########  ######     #### ##    ## ##     ##  #######  ##    ## ########
+// ##    ##   ##  ##          ##    ##    ##     ##  ###   ## ##     ## ##     ## ##   ##  ##
+// ##         ##  ##          ##    ##           ##  ####  ## ##     ## ##     ## ##  ##   ##
+// ##   ####  ##  ######      ##     ######      ##  ## ## ## ##     ## ##     ## #####    ######
+// ##    ##   ##  ##          ##          ##     ##  ##  ####  ##   ##  ##     ## ##  ##   ##
+// ##    ##   ##  ##          ##    ##    ##     ##  ##   ###   ## ##   ##     ## ##   ##  ##
+//  ######   #### ##          ##     ######     #### ##    ##    ###     #######  ##    ## ########
 
 function giftInvoke() {
   bike = new Gift("Bike", 10, 100, 190);
@@ -362,8 +372,6 @@ function giftInvoke() {
   //   giftY.push(el.y);
   // });
 }
-
-
 
 // ##    ## ######## ##      ##  ######      ###    ##     ## ########
 // ###   ## ##       ##  ##  ## ##    ##    ## ##   ###   ### ##
@@ -398,9 +406,7 @@ function newGame() {
   for (let i = 4; i < 8; i++) {
     var j = Math.floor(Math.random() * (i + 1));
     giftArr[i].y = giftY[i - 4];
-
   }
-
 
   // giftArr.forEach((el, index) => {
   //   let randX = Math.floor(Math.random() * (giftX.length - 1));
@@ -481,26 +487,28 @@ function startGame() {
   animLoop();
 }
 
-startGame();
+//INTRO WINDOW
 
-// ON CLICK DOWN ==> method pour guider en maintenant cliqué les elfs.
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, W, H);
+ctx.fillStyle = "orange";
+ctx.font = "20px Sans-serif";
+ctx.fillText(
+  "Help Xanta's elf to fullfil the maximum of children's wishlists.",
+  200,
+  100
+);
+ctx.fillText("Pick-up gifts and drop them on the warehouse belt.", 235, 130);
+ctx.fillText("Use your keyboard arrows!", 330, 230);
+ctx.fillText("That's X-mas, gifts may have some tricks!", 260, 300);
+ctx.fillStyle = "black";
+ctx.font = "16px Sans-serif";
+// designGrid();
 
-/*
-
-Elf should go into an aisle to pick up a gift written on the list.
-And then drop them on the belt.
-
-1 - Make gift appear on the right place
-2 - Test for each gift if Elf is on it or not
-    In order to create this, we need to iterate on each gift to know if the Elf is not on it.
-3 - change Elf image.
-
-
-Gift location can be shuffled every 15 seconds.
-
-Or
-
-Elf should run on gifts which appeared randomly on the board and bring them to the belt.
-
-
-*/
+// START GAME
+var btn = document.getElementById("startGame");
+btn.addEventListener("click", () => {
+  document.getElementById("audio").play();
+  ctx.clearRect(0, 0, W, H);
+  startGame();
+});
