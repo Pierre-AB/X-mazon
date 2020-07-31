@@ -6,14 +6,14 @@ class Gift {
     this.weight = weight; // MAYBE A NEXT FEATURE
     this.img = new Image();
     this.srcs = {
-      Bike: "./assets/Gifts/bike-1.jpg",
-      Car: "./assets/Gifts/car-toy-1.jpg",
-      "Construction Blocks": "./assets/Gifts/construction-block-1.jpg",
-      Doll: "./assets/Gifts/doll-2.png",
-      "Video Game": "./assets/Gifts/video-game.jpg",
-      Candy: "./assets/Gifts/lollipop-swirl.jpg",
-      Books: "./assets/Gifts/books.webp",
-      "Hi-Tech Stuff": "./assets/Gifts/pcb.jpg",
+      "Bike": "./assets/Gifts/bike-1.png",
+      "Car": "./assets/Gifts/car-toy-1.png",
+      "Construction Blocks": "./assets/Gifts/construction-block-1.png",
+      "Doll": "./assets/Gifts/doll-1.png",
+      "Video Game": "./assets/Gifts/video-game.png",
+      "Candy": "./assets/Gifts/lollipop-swirl.png",
+      "Books": "./assets/Gifts/books.png  ",
+      "Hi-Tech Stuff": "./assets/Gifts/pcb.png",
     };
     this.x = x;
     this.y = y;
@@ -24,7 +24,7 @@ class Gift {
   }
   giftImg(name) {
     const imgRatio = this.img.naturalWidth / this.img.naturalHeight;
-    this.w = 40;
+    this.w = 60;
     this.h = this.w / imgRatio;
     this.img.src = this.srcs[name];
     // this.draw()
@@ -49,7 +49,7 @@ class Gift {
     // let randB = Math.floor(Math.random() * (425 - 325 + 1) + 325);
     let randB = Math.floor(
       Math.random() * (belt.x - this.w - (aisleL1.x + aisleL1.w) + 1) +
-        (aisleL1.x + aisleL1.w)
+      (aisleL1.x + aisleL1.w)
     );
     this.posArrObst.push(randB);
     return randB;
@@ -59,7 +59,7 @@ class Gift {
     // let randC = Math.floor(Math.random() * (575 - 475 + 1) + 475);
     let randC = Math.floor(
       Math.random() * (aisleR1.x - this.w - (belt.x + belt.w) + 1) +
-        (belt.x + belt.w)
+      (belt.x + belt.w)
     );
     this.posArrObst.push(randC);
     return randC;
@@ -69,7 +69,7 @@ class Gift {
     // let randD = Math.floor(Math.random() * (900 - 825 + 1) + 825);
     let randD = Math.floor(
       Math.random() * (W - this.w - (aisleR1.x + aisleR1.w) + 1) +
-        (aisleR1.x + aisleR1.w)
+      (aisleR1.x + aisleR1.w)
     );
     this.posArrObst.push(randD);
     return randD;

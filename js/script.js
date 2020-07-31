@@ -145,19 +145,25 @@ function draw() {
     if (giftList.wishList.indexOf(elfOne.charge) >= 0) {
       santasHood.push(elfOne.charge);
       elfOne.charge = undefined;
+    } else if (elfOne.charge) {
+      elfOne.charge.randPosGift();
+      giftArr.push(elfOne.charge);
+      elfOne.charge = undefined;
     } else {
-      console.log("not selected toy");
+      console.log("no gift");
     }
   }
 
-  // DRAWING SANTASHOOD
+  // DRAWING SANTASHOOD ON THE BELT
   santasHood.forEach((el, index) => {
     const gift = giftList.wishList.find((gift) => {
       return gift === el;
     });
-    gift.x = belt.x - belt.w / 2 - gift.w / 2;
-    const i = (belt.h - santasHood.length * gift.h) / santasHood.length + 1;
-    gift.y = (index + 1) * i + index * gift.h;
+    gift.h = gift.h / 2;
+    gift.x = belt.x + (belt.w / 2) - (gift.w / 2);
+    const i = ((belt.y + belt.h) - (santasHood.length * gift.h)) / (santasHood.length + 1);
+    //300 - (51,15 * 4) / 
+    gift.y = (index + 1) * i + ((index + 2) * gift.h); //+ gift.h;
     gift.giftImg(gift.name);
     // console.log("stop");
     // ctx.fillRect(0, 0, 100, 100);
@@ -171,11 +177,11 @@ function draw() {
 
   //         H
   // <--------------------->
-  //   [ ]  [ ]  [ ]  [ ]
+  //   [ ]  [ ]  [ ]  [ ]  
   // --
 
   // H = 5i+4h
-  // i = (H-4h)/5
+  // i = (H-4h)/5 ----  (125 + 300 - (2 * 50))/2 = 425 - 100 /2 = 162
   // H =
   // 3i+2h (3e y)
 
@@ -195,7 +201,7 @@ function draw() {
   // ATTENTION: si plus d'objet, l'elf n'est plus affiché
   // elf-> lastStatus to order
 
-  //   designGrid();
+  // designGrid();
 } //END DRAW FUNCTION
 
 //  ######  ##     ## #### ##       ########
@@ -407,14 +413,14 @@ function startGame() {
   );
 
   //GIFT INVOKE
-  bike = new Gift("Bike", 0, 100, 200);
-  car = new Gift("Car", 0, 100, 300);
-  lego = new Gift("Construction Blocks", 0, 100, 400);
-  doll = new Gift("Doll", 0, 100, 500);
-  videoGame = new Gift("Video Game", 0, 750, 200);
-  candy = new Gift("Candy", 0, 750, 300);
-  books = new Gift("Books", 0, 750, 400);
-  hiTech = new Gift("Hi-Tech Stuff", 0, 750, 500);
+  bike = new Gift("Bike", 0, 100, 190);
+  car = new Gift("Car", 0, 100, 290);
+  lego = new Gift("Construction Blocks", 0, 100, 390);
+  doll = new Gift("Doll", 0, 100, 490);
+  videoGame = new Gift("Video Game", 0, 750, 190);
+  candy = new Gift("Candy", 0, 750, 290);
+  books = new Gift("Books", 0, 750, 390);
+  hiTech = new Gift("Hi-Tech Stuff", 0, 750, 490);
   //PUSH GIFTS IN ARRAY TO ITERATE ON EACH
   giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
   //create a new random wishList containing objects
