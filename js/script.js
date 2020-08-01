@@ -214,7 +214,7 @@ function draw() {
     ctx.fillStyle = "black";
     ctx.fillText(`GAME OVER`, 400, 250);
     ctx.fillText(`You saved ${happyChild} X-mas!`, 380, 280);
-    ctx.fillText(`Just a few millions more to go...`, 350, 310);
+    ctx.fillText(`Just few millions more to go...`, 350, 310);
   }
 
   // designGrid();
