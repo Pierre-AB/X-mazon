@@ -7,7 +7,7 @@ const H = ctx.canvas.height;
 var G = 50; // GRID FINE TUNING - ONE SIDE OF A GRID SQUARE
 //Gameover image
 var gOImage = new Image();
-gOImage.src = "./assets/Fun to add/gameover.png";
+gOImage.src = "./assets/Fun_to_add/gameover.png";
 // Gameplay variables
 var gameover = false;
 var giftList; // object containing the wishlist -> giftList.wishlist is the current game list
@@ -34,7 +34,6 @@ var doll;
 //Time variable
 let startedAt;
 let endAt = 120000; // 2min per game === 120000
-//Audio variable
 
 // ########   #######     ###    ########  ########
 // ##     ## ##     ##   ## ##   ##     ## ##     ##
@@ -56,12 +55,9 @@ woodFloor.src = "./assets/background/Woodfloor_oneimage.jpg";
 // ########  ##     ## ##     ##  ###  ###
 
 function draw() {
-  ctx.clearRect(0, 0, W, H); // --???-- A BIT HARDCORE NO ??
+  ctx.clearRect(0, 0, W, H);
   ctx.drawImage(woodFloor, 0, 0, W, H);
   giftList.draw(); // print wishlist randomly picked on the board
-
-  //debugger;
-  // ctx.fillRect(200, 200, 100, 100);
 
   belt.draw();
   // LEFT AISLE DRAW
@@ -109,8 +105,6 @@ function draw() {
 
     if (elfOne.collision(giftArr[i])) {
       elfOne.charge = giftArr[i];
-      // elfOne.changeSrc(1); // A CHANGER EN FONCTION DE this.charge
-      // console.log(elfOne.img.src);
       console.log(elfOne.charge);
       giftArr.splice(i, 1);
       // console.log(giftArr);
@@ -119,12 +113,10 @@ function draw() {
       giftArr[i].giftImg(giftArr[i].name);
       giftArr[i].draw();
     }
-    // elfOne.changeSrc(0);
   }
 
   // DROPPING GIFT IN santasHood
   if (theObstacle == belt) {
-    // ctx.fillRect(400, 100, 100, 100);
     if (giftList.wishList.indexOf(elfOne.charge) >= 0) {
       santasHood.push(elfOne.charge);
       elfOne.charge = undefined;
@@ -150,12 +142,8 @@ function draw() {
     gift.y = (index + 1) * i + (index + 2) * gift.h; //+ gift.h;
     gift.giftImg(gift.name);
     // console.log("stop");
-    // ctx.fillRect(0, 0, 100, 100);
-    gift.draw(); // -----????----- NE FONCTIONNE PAS
-    // console.log(index, gift.x, gift.y, );
+    gift.draw();
   });
-
-  // ctx.fillRect(200, 100, 100, 100);
 
   elfOne.decay();
 
@@ -171,7 +159,7 @@ function draw() {
 
   wishListCompleted();
   childDraw();
-  //IMPROVE DRAW FUNCTION IN ELF OBJECT
+  //CHANGE ELF IMAGE
   if (elfOne.charge) {
     elfOne.changeSrc(1);
     elfOne.draw();
@@ -274,7 +262,11 @@ function wishListCompleted() {
 // ##     ## ##       ##    ##  ##  ##    ##  ##   ###    ##    ##  ##    ##   ##  ##     ##
 // ########  ########  ######  ####  ######   ##    ##     ######   ##     ## #### ########
 
+//
 //UTILITY FUNCTION FOR BOARD DESIGN PURPOSE
+//
+
+
 function designGrid() {
   var dash = 3; // Dash size
   var gap = 15; // Gap btw dash size
@@ -367,10 +359,6 @@ function giftInvoke() {
   books = new Gift("Books", -5, 750, 390);
   hiTech = new Gift("Hi-Tech Stuff", 5, 750, 490);
   giftArr.push(bike, car, lego, doll, videoGame, candy, books, hiTech);
-  // giftArr.forEach(el => {
-  //   giftX.push(el.x);
-  //   giftY.push(el.y);
-  // });
 }
 
 // ##    ## ######## ##      ##  ######      ###    ##     ## ########
@@ -408,14 +396,6 @@ function newGame() {
     giftArr[i].y = giftY[i - 4];
   }
 
-  // giftArr.forEach((el, index) => {
-  //   let randX = Math.floor(Math.random() * (giftX.length - 1));
-  //   let randY = Math.floor(Math.random() * (giftY.length - 1));
-  //   el.x = giftX[randX];
-  //   giftX.splice(randX, 1);
-  //   el.y = giftY[randY];
-  //   giftY.splice(randY, 1);
-  // })
   //create a new random wishList containing objects
   giftList.newWishList();
 }

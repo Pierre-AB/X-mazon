@@ -7,10 +7,10 @@ class child {
         this.w = 50;
         this.h;
         this.img = new Image();
-        this.srcs = ["./assets/Fun to add/HappyChild1.png",
-            "./assets/Fun to add/HappyChild2.png",
-            "./assets/Fun to add/HappyChild3.png",
-            "./assets/Fun to add/HappyChild4.png"
+        this.srcs = ["./assets/Fun_to_add/HappyChild1.png",
+            "./assets/Fun_to_add/HappyChild2.png",
+            "./assets/Fun_to_add/HappyChild3.png",
+            "./assets/Fun_to_add/HappyChild4.png"
         ]
         this.changeSrc(0);
     }
@@ -19,7 +19,6 @@ class child {
         this.w = 80;
         this.h = this.w / imgRatio;
         this.img.src = this.srcs[i];
-        // this.draw()
     }
     draw() {
         if (!this.img) return;

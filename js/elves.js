@@ -12,12 +12,6 @@ class Elf {
         this.changeSrc(0); // new Elf()
         this.charge;
         this.speed = 15;
-        // this.nextUp = this.y - this.speed;
-        // this.nextDown = this.y + this.speed;
-        // this.nextRight = this.x - this.speed;
-        // this.nextLeft = this.x + this.speed;
-        // this.nextX = 0;
-        // this.nextY = 0;
         this.lastmove = undefined;
     }
     changeSrc(i) {
@@ -26,11 +20,9 @@ class Elf {
         this.w = 40;
         this.h = this.w / imgRatio;
         this.img.src = this.srcs[i];
-        // this.draw();
         // }
     }
     draw() {
-        // ctx.fillRect(this.x, this.y, this.w, this.h);
         if (!this.img) return;
         ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
     }
@@ -116,5 +108,3 @@ class Elf {
         );
     }
 }
-
-/* When Elf moves and encounter an obstacle, he must not be able to move further however it should be free to go somewhere else */

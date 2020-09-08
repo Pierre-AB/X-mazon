@@ -13,16 +13,9 @@ class Obstacles {
   draw() {
     if (!this.img) return;
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-    // ctx.fillStyle = this.color;
-    // ctx.fillRect(this.x, this.y, this.w, this.h);
-    // ctx.fillStyle = "black";
+ 
   }
-  // collision(elf) {
-  //     return (this.y + this.h > elf.y &&
-  //         this.y < elf.y + elf.h &&
-  //         this.x + this.w > elf.x &&
-  //         this.x < elf.x + elf.w);
-  // }
+
 }
 
 class Belt extends Obstacles {
